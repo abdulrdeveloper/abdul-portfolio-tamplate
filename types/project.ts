@@ -1,12 +1,20 @@
+import { StaticImageData } from "next/image";
+
+export interface Technology {
+  name: string;
+  icon: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
   description: string;
-  longDescription: string;
-  tech: string[];
-  link?: string;
-  github?: string;
-  video?: string;
-  featured: boolean;
-  year: string;
+  image: StaticImageData;
+  technologies: Technology[];
+  features: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  githubUrlFrontend?: string;
+  isApp?: boolean;
+  featured?: boolean;
 }

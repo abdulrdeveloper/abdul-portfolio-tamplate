@@ -2,10 +2,10 @@ import type { NavItem, SocialLink } from "@/types/social";
 
 export const siteConfig = {
   name: "Abdul Rahman",
-  title: "Abdulrahman — Developer",
+  title: "Abdul Rahman — Full-Stack & AI Developer",
   description:
-    "Full-stack developer building thoughtful, well-crafted web experiences.",
-  url: "https://abdulrahman.dev",
+    "Full-stack developer and AI enthusiast building intelligent web experiences with Next.js, React Native, and Agentic AI. Based in Faisalabad, Pakistan.",
+  url: "https://www.abdulrahmanasif.dev",
 };
 
 export const navItems: NavItem[] = [
@@ -14,8 +14,10 @@ export const navItems: NavItem[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { name: "GitHub", url: "https://github.com" },
-  { name: "LinkedIn", url: "https://linkedin.com" },
-  { name: "X", url: "https://x.com" },
-  { name: "Email", url: "mailto:hello@abdulrahman.dev" },
+  { name: "GitHub", url: "https://github.com/abdulrahman-sde" },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/abdul-rahman-sde",
+  },
+  { name: "Email", url: "mailto:abdulrahman.sde@gmail.com" },
 ];

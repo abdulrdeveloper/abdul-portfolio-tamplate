@@ -10,12 +10,12 @@ export function Navbar() {
       <Container className="flex h-14 items-center justify-between">
         <Link
           href="/"
-          className="font-serif text-lg italic text-foreground transition-opacity duration-150 hover:opacity-70"
+          className="text-lg   text-foreground transition-opacity duration-150 hover:opacity-70"
         >
           {siteConfig.name}
         </Link>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center">
           <NavLinks />
           <div className="ml-2 border-l border-border pl-2">
             <ThemeToggle />
