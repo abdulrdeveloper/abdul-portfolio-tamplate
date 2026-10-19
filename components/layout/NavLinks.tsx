@@ -10,12 +10,13 @@ export function NavLinks() {
   return (
     <>
       {navItems.map((item) => {
-        const active = pathname.startsWith(item.href);
+        const active = !item.href.includes("#") && pathname.startsWith(item.href);
         return (
           <Link
             key={item.href}
             href={item.href}
-            className={cn("rounded-md px-3 py-1.5 text-sm transition-colors duration-150",
+            aria-current={active ? "page" : undefined}
+            className={cn("rounded-md px-2 py-1.5 text-xs transition-colors duration-150 sm:px-3 sm:text-sm",
               active
                 ? "text-foreground"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",

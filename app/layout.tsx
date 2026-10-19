@@ -4,14 +4,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { siteConfig } from "@/constants/site";
-import {
-  JsonLd,
-  getWebSiteSchema,
-  getPersonSchema,
-} from "@/components/seo/JsonLd";
-import Script from "next/script";
-
-import"./globals.css";
+import { JsonLd, getWebSiteSchema, getPersonSchema } from "@/components/seo/JsonLd";
+import "./globals.css";
 
 const bodyFont = Hanken_Grotesk({
   variable: "--font-hanken-grotesk",
@@ -28,78 +22,46 @@ const headingFont = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.title,
-    template: `%s - ${siteConfig.fullName}`,
-  },
+  title: { default: siteConfig.title, template: "%s | Abdul Rahman" },
   description: siteConfig.description,
-  keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.fullName, url: siteConfig.url }],
   creator: siteConfig.fullName,
-  publisher: siteConfig.fullName,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1,
-    },
-  },
-  alternates: {
-    canonical: siteConfig.url,
-  },
+  icons: { icon: { url: "/favicon.png", type: "image/png" }, apple: "/favicon.png" },
+  robots: { index: true, follow: true },
+  alternates: { canonical: siteConfig.url },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    siteName: `${siteConfig.fullName} - Portfolio`,
+    siteName: siteConfig.title,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.fullName} - Full-Stack Developer & AI Engineer`,
-        type: "image/png",
-      },
-    ],
+    images: [{
+      url: siteConfig.ogImage, width: 1200, height: 630,
+      alt: siteConfig.title, type: "image/png",
+    }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@abdulrahman_sde",
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${bodyFont.variable} ${headingFont.variable} font-sans antialiased bg-neutral-100`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body className={`${bodyFont.variable} ${headingFont.variable} font-sans antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <a href="#main-content" className="skip-link">Skip to content</a>
           <Navbar />
-          <main className="min-h-[calc(100dvh-3.5rem)]">{children}</main>
+          <main id="main-content" className="min-h-[calc(100dvh-3.5rem)]">{children}</main>
           <Footer />
         </ThemeProvider>
-
-        {/* Global structured data */}
         <JsonLd data={getWebSiteSchema()} />
         <JsonLd data={getPersonSchema()} />
       </body>
-      <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
     </html>
   );
 }

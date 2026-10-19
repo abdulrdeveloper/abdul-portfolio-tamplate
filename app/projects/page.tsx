@@ -1,26 +1,18 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { SectionHeader } from "@/components/shared/SectionHeader";
 import { ProjectGrid } from "@/components/core/projects/ProjectGrid";
 import { projects } from "@/constants/projects";
 import { siteConfig } from "@/constants/site";
-import {
-  JsonLd,
-  getBreadcrumbSchema,
-  getProjectsCollectionSchema,
-} from "@/components/seo/JsonLd";
+import { JsonLd, getBreadcrumbSchema, getProjectsCollectionSchema } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Projects - Full-Stack & AI Developer Portfolio",
-  description: "Explore full-stack and AI projects by Abdul Rahman Asif including agentic AI pipelines, RAG systems, React Native mobile apps, Next.js web applications, and developer tools. Software engineer portfolio showcasing production-grade work.",
-  alternates: {
-    canonical: `${siteConfig.url}/projects`,
-  },
+  title: "Projects",
+  description: "Explore Abdul Rahman’s full-stack projects: Klar, Sonik, Glimpse, and DevScope. Built with React, Next.js, Node.js, and modern databases.",
+  alternates: { canonical: `${siteConfig.url}/projects` },
   openGraph: {
-    title: "Projects - Abdul Rahman Asif | Full-Stack & AI Portfolio",
-    description: "Full-stack and AI projects from agentic pipelines and RAG systems to mobile apps and VS Code themes.",
+    title: "Projects | Abdul Rahman",
+    description: "Selected web applications and developer tools.",
     url: `${siteConfig.url}/projects`,
-    type: "website",
   },
 };
 
@@ -28,29 +20,13 @@ export default function ProjectsPage() {
   return (
     <>
       <Container className="py-16">
-        <SectionHeader label="Work" title="Projects" />
-        <p
-          className="mb-10 max-w-md text-muted-foreground leading-relaxed"
-        >
-          A collection of things I&apos;ve built: AI agents, full-stack apps,
-          mobile experiences, and developer tools.
-        </p>
-
-        <div
-          className="mb-12"
-        >
-          <ProjectGrid projects={projects} />
-        </div>
+        <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">Work</p>
+        <h1 className="font-serif text-3xl font-semibold">Projects</h1>
+        <p className="mt-5 text-sm leading-relaxed text-muted-foreground">A selection of web applications I&apos;ve built, from a study assistant and music platform to developer tools.</p>
+        <ProjectGrid projects={projects} />
       </Container>
-
-      {/* Structured data */}
       <JsonLd data={getProjectsCollectionSchema()} />
-      <JsonLd
-        data={getBreadcrumbSchema([
-          { name: "Home", url: siteConfig.url },
-          { name: "Projects", url: `${siteConfig.url}/projects` },
-        ])}
-      />
+      <JsonLd data={getBreadcrumbSchema([{ name: "Home", url: siteConfig.url }, { name: "Projects", url: `${siteConfig.url}/projects` }])} />
     </>
   );
 }

@@ -4,216 +4,83 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { projects } from "@/constants/projects";
-import { getTechSvgIcon } from "@/constants/tech-icons";
 import { siteConfig } from "@/constants/site";
-import RaisedButton from "@/components/ui/RaisedBtn";
-import {
-  JsonLd,
-  getBreadcrumbSchema,
-  getProjectSchema,
-} from "@/components/seo/JsonLd";
+import { JsonLd, getBreadcrumbSchema, getProjectSchema } from "@/components/seo/JsonLd";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: ProjectPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
-  if (!project) return {};
-
-  const title = `${project.title} - Case Study | Abdul Rahman Asif`;
-  const description = `${project.description.slice(0, 155)}…`;
-  const url = `${siteConfig.url}/projects/${slug}`;
-
+  const project = projects.find((entry) => entry.slug === slug);
+  if (!project) notFound();
   return {
-    title,
-    description,
-    alternates: {
-      canonical: url,
-    },
+    title: project.title,
+    description: project.description,
+    alternates: { canonical: `${siteConfig.url}/projects/${slug}` },
     openGraph: {
-      title,
-      description,
-      url,
-      type: "article",
-      images: siteConfig.ogImage
-        ? [
-            {
-              url: siteConfig.ogImage,
-              width: 1200,
-              height: 630,
-              alt: `${project.title} - Project by ${siteConfig.fullName}`,
-            },
-          ]
-        : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
+      title: `${project.title} | Abdul Rahman`,
+      description: project.description,
+      url: `${siteConfig.url}/projects/${slug}`,
     },
   };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = projects.find((entry) => entry.slug === slug);
   if (!project) notFound();
-
   return (
     <>
-      <div className="min-h-screen pb-24 pt-16">
-        <Container>
-          {/* Back Link */}
-          <div
-            className="mb-10"
-          >
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 12H5" />
-                <path d="M12 19l-7-7 7-7" />
-              </svg>
-              All Projects
-            </Link>
-          </div>
-
-          {/* Header Section */}
-          <div>
-              <div className="mb-4 flex items-center gap-3">
-                <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
-                  {project.isApp ? "Mobile Application" : "Web Case Study"}
-                </span>
-              </div>
-
-              <h1 className="font-serif text-2xl md:text-3xl tracking-tight text-foreground text-balance">
-                {project.title}
-              </h1>
-
-              <p className="mt-5 text-sm leading-7 text-muted-foreground">
-                {project.description}
-              </p>
-
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <RaisedButton className="h-auto rounded-lg px-3.5 py-1 text-[13px] font-medium leading-6">
-                      View Live Demo
-                    </RaisedButton>
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-transparent px-3.5 py-1 text-[13px] font-medium leading-6 text-foreground transition-all duration-150 hover:bg-muted active:scale-[0.97]"
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    Source Code
-                  </a>
-                )}
-              </div>
-          </div>
-
-          {/* Content Section */}
-          <div
-            className="mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-[1fr_250px] lg:gap-24"
-          >
-            {/* Features / Details */}
-            <div>
-              <h2 className="font-serif text-xl tracking-tight text-foreground">
-                Key Features
-              </h2>
-              <div className="mt-8 space-y-4">
-                {project.features.map((feature, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-border bg-muted dark:bg-[#28272746]">
-                      <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-foreground"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    </div>
-                    <p className="text-sm leading-7 text-muted-foreground">
-                      {feature}
-                    </p>
-                  </div>
-                ))}
-              </div>
+      <Container className="pb-24 pt-16">
+        <Link href="/projects" className="text-xs text-muted-foreground hover:text-foreground">← All Projects</Link>
+        <div className="mb-4 mt-12">
+          <span className="inline-flex rounded-full bg-muted px-2.5 py-1 text-[11px] text-muted-foreground">Web Case Study</span>
+        </div>
+        <h1 className="font-serif text-3xl font-semibold tracking-tight">{project.title}</h1>
+        <p className="mt-5 text-sm leading-7 text-muted-foreground">{project.description}</p>
+        <div className="mt-8 flex flex-wrap gap-3 text-[13px] font-medium">
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-foreground px-3.5 py-2 text-background transition-opacity hover:opacity-85">View Live Demo</a>
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-border px-3.5 py-2 transition-colors hover:bg-muted">
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3.5" fill="currentColor"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.71-1.5-2.5-.29-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.16a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.33-2.64 5.28-5.15 5.56.4.35.76 1.03.76 2.08v3.1c0 .3.2.65.77.54A11.25 11.25 0 0 0 12 .75Z" /></svg>
+            Source Code
+          </a>
+        </div>
+        <div className="mt-20 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-[minmax(0,1fr)_220px] md:gap-12">
+          <section>
+            <h2 className="font-serif text-xl font-semibold">Key Features</h2>
+            <ul className="mt-7 space-y-5 text-sm leading-7 text-muted-foreground">
+              {project.features.map((feature) => (
+                <li key={feature} className="flex gap-4">
+                  <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full border border-border bg-muted">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 12 4 4 8-8" /></svg>
+                  </span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section>
+            <h2 className="font-serif text-xl font-semibold">Tech Stack</h2>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {project.technologies.map((technology) => <Badge key={technology}>{technology}</Badge>)}
             </div>
-
-            {/* Tech Stack Sidebar */}
-            <div>
-              <h3 className="font-serif text-lg tracking-tight text-foreground">
-                Tech Stack
-              </h3>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <Badge
-                    key={tech.name}
-                    techIcon={getTechSvgIcon(tech.name)}
-                    techIconAlt={tech.name}
-                    className="px-2.5 py-0.5 text-[11px]"
-                  >
-                    {tech.name}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Container>
-      </div>
-
-      {/* Structured data */}
+          </section>
+        </div>
+      </Container>
       <JsonLd data={getProjectSchema(project)} />
-      <JsonLd
-        data={getBreadcrumbSchema([
-          { name: "Home", url: siteConfig.url },
-          { name: "Projects", url: `${siteConfig.url}/projects` },
-          {
-            name: project.title,
-            url: `${siteConfig.url}/projects/${project.slug}`,
-          },
-        ])}
-      />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Projects", url: `${siteConfig.url}/projects` },
+        { name: project.title, url: `${siteConfig.url}/projects/${project.slug}` },
+      ])} />
     </>
   );
 }
