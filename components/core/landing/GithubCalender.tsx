@@ -9,7 +9,7 @@ const GitHubCalendar = dynamic(
   { ssr: false },
 );
 
-const LAST_MONTHS_TO_SHOW = 9;
+const LAST_MONTHS_TO_SHOW = 8;
 
 const transformToLastMonths = (data: Activity[]) => {
   const cutoffDate = new Date();
@@ -36,11 +36,11 @@ const explicitTheme = {
 };
 
 export default function GithubCalendar() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <div className="mb-2 w-full rounded-xl p-4">
+    <div className="mb-2 w-full rounded-xl py-4">
       <GitHubCalendar
         username="abdulrahman-sde"
         className="github-calendar "
@@ -49,8 +49,8 @@ export default function GithubCalendar() {
         colorScheme={isDark ? "dark" : "light"}
         blockMargin={4}
         showTotalCount={false}
-        showWeekdayLabels={false}
-        showColorLegend
+        showWeekdayLabels={true}
+        showColorLegend={true}
         transformData={transformToLastMonths}
         fontSize={13}
         theme={explicitTheme}
