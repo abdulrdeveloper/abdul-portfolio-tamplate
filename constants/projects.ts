@@ -1,21 +1,23 @@
 import type { Project } from "@/types/project";
-import healthpalImg from "@/public/assets/images/healthpal-l.png";
-import chatappImg from "@/public/assets/images/chatapp-l.png";
-import dealportImg from "@/public/assets/images/dealport-l.png";
-import foodmanImg from "@/public/assets/images/foodman-l.png";
-import logoaiImg from "@/public/assets/images/logo-ai-l.png";
-import meditrackImg from "@/public/assets/images/meditrack-l.png";
-import storeitImg from "@/public/assets/images/store-it-l.png";
-import talkwithpdfImg from "@/public/assets/images/talkwithpdf-l.png";
-import unrollaiImg from "@/public/assets/images/unroll-ai-l.png";
-
+import healthpalImg from "@/public/assets/images/healthpal.png";
+import chatappImg from "@/public/assets/images/chatapp.png";
+import dealportImg from "@/public/assets/images/dealport.png";
+import foodmanImg from "@/public/assets/images/foodman.png";
+import logoaiImg from "@/public/assets/images/logo-ai.png";
+import meditrackImg from "@/public/assets/images/meditrack.png";
+import storeitImg from "@/public/assets/images/store-it.png";
+import talkwithpdfImg from "@/public/assets/images/talkwithpdf.png";
+import unrollaiImg from "@/public/assets/images/unroll-ai.png";
+import astraBotImg from "@/public/assets/images/astrabot.png";
+import weatherImg from "@/public/assets/images/weather.png";
+import midnightFusionImg from "@/public/assets/images/midnightFusion.jpeg";
+import suxnixImg from "@/public/assets/images/suxnix.png";
 export const projects: Project[] = [
-  // ── AI & Full-Stack (High Complexity) ────────────────────────
   {
     slug: "dealport",
     title: "DealPort",
     description:
-      "A full-stack E-Commerce Admin Dashboard with a GPT-4o 'Magic Wand' that translates product names into polished, SEO-ready descriptions. Features a decoupled React/TypeScript frontend and Node.js/Express backend with strict layered architecture, Zod validation, Redis session tracking, and JWT rotation.",
+      "A full-stack E-Commerce Admin Dashboard with AI-assisted product description generation. Built with a decoupled React/TypeScript frontend and Node.js/Express backend, with strongest focus on Redis session tracking, cron-driven analytics pipelines, and cached aggregated sales data in Upstash Redis.",
     image: dealportImg,
     liveUrl: "https://dealport-frontened-powy.vercel.app/",
     githubUrl:
@@ -25,14 +27,14 @@ export const projects: Project[] = [
       { name: "TypeScript", icon: "/assets/icons/typescript.svg" },
       { name: "Node.js", icon: "/assets/icons/nodejs.svg" },
       { name: "Prisma", icon: "/assets/icons/prisma.svg" },
-      { name: "OpenAI", icon: "/assets/icons/openai.svg" },
+      { name: "Upstash Redis", icon: "/assets/icons/skills/redis.png" },
     ],
     features: [
-      "GPT-4o Magic Wand for SEO-ready product descriptions",
+      "AI-assisted product description workflow (model-agnostic API integration)",
       "Redux Toolkit + RTK Query state management",
-      "Zod validation on every API endpoint",
-      "Redis session tracking & JWT rotation with HTTP-only cookies",
+      "Upstash Redis session tracking with JWT rotation and HTTP-only cookies",
       "Cron jobs for daily sales snapshot aggregation",
+      "Cached aggregated analytics data in Upstash Redis",
     ],
     featured: true,
   },
@@ -160,11 +162,34 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "suxnix-power-supplements",
+    title: "Suxnix – Nutrition & Supplements Website",
+    description:
+      "A modern, SEO-optimized nutrition and supplements website built with Next.js, TypeScript, Tailwind CSS, and Prismic CMS. Everything loads dynamically from Prismic CMS — including products, blogs, and all landing sections — using SSR/SSG for fast performance and strong SEO.",
+    image: suxnixImg,
+    liveUrl: "https://bootcamp-suxnix-new.vercel.app/",
+    githubUrl: "https://github.com/abdulrahman-sde/bootcamp-suxnix-new.git",
+    technologies: [
+      { name: "Next.js", icon: "/assets/icons/react.svg" },
+      { name: "TypeScript", icon: "/assets/icons/react.svg" },
+      { name: "Tailwind CSS", icon: "/assets/icons/react.svg" },
+      { name: "Prismic CMS", icon: "/assets/icons/react.svg" },
+      { name: "SSR/SSG", icon: "/assets/icons/react.svg" },
+    ],
+    features: [
+      "All content loads from Prismic CMS (products, blogs, and all sections)",
+      "Landing page content (hero, featured products, offers) managed in Prismic CMS",
+      "Features, ingredients, and benefits fetched dynamically from Prismic CMS",
+      "Shop catalog and product detail content sourced from Prismic CMS",
+      "Blog content and dynamic pages powered by Prismic CMS with SSR/SSG",
+    ],
+  },
+  {
     slug: "astrabot",
     title: "AstraBot",
     description:
       "An advanced AI-powered chatbot built with Next.js 15 that delivers intelligent, context-aware responses. Maintains full conversation context, stores chat history in MongoDB, and uses Clerk for secure authentication.",
-    image: healthpalImg,
+    image: astraBotImg,
     githubUrlFrontend: "https://astra-chatbot-peach.vercel.app/",
     githubUrl: "https://github.com/abdulrehman-codecrafter/astra-chatbot.git",
     technologies: [
@@ -259,7 +284,7 @@ export const projects: Project[] = [
     title: "Midnight Fusion",
     description:
       "A meticulously designed VS Code theme combining deep dark tones with vibrant highlights. Optimized for readability and reduced eye strain with custom syntax highlighting for popular languages.",
-    image: healthpalImg,
+    image: midnightFusionImg,
     liveUrl:
       "https://marketplace.visualstudio.com/items?itemName=Abdulrahmansde.midnight-fusion",
     githubUrl: "https://github.com/abdulrehman-codecrafter/Vscode-theme.git",
@@ -275,32 +300,13 @@ export const projects: Project[] = [
       "Consistent styling across UI components",
     ],
   },
-  {
-    slug: "tasks-optimizer",
-    title: "Tasks Optimizer",
-    description:
-      "A productivity web app built with React (Vite) for task management. Includes task prioritization, due dates, reminders, and a responsive interface styled with SCSS and Bootstrap.",
-    image: healthpalImg,
-    liveUrl: "https://tasks-optimzer.netlify.app/",
-    githubUrl: "https://github.com/abdulrehman-codecrafter/react-todo-.git",
-    technologies: [
-      { name: "React (Vite)", icon: "/assets/icons/vitejs.svg" },
-      { name: "SCSS", icon: "/assets/icons/sass.svg" },
-      { name: "Bootstrap", icon: "/assets/icons/bootstrap4.svg" },
-      { name: "JavaScript", icon: "/assets/icons/js.svg" },
-    ],
-    features: [
-      "Create, update, and delete tasks",
-      "Task prioritization and due dates",
-      "Responsive design for mobile and desktop",
-    ],
-  },
+
   {
     slug: "weather-app",
     title: "Weather App",
     description:
       "A real-time weather application powered by the OpenWeather API. Features weather alerts, location-based forecasts, and a responsive design for both web and mobile.",
-    image: healthpalImg,
+    image: weatherImg,
     liveUrl: "https://abdulrahman-weather-app.netlify.app/",
     githubUrl: "https://github.com/abdulrehman-codecrafter/Weather-app.git",
     technologies: [

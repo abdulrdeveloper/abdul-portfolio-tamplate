@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig, socialLinks } from "@/constants/site";
-import avatar from "@/public/avatar.jpg";
+import avatar from "@/public/avatar11.png";
+import { FlipWords } from "@/components/ui/FlipWords";
+const words = ["Software Engineer", "Iterator"];
+
 export function HeroSection() {
   return (
     <section className="py-16">
       <div className="flex flex-col max-w-[72ch]">
-        {/* ── Avatar and Title/Role ────────────────── */}
         <div
           className="flex items-center gap-5 animate"
           style={{ animationDelay: "0ms" }}
@@ -17,24 +19,27 @@ export function HeroSection() {
               alt={siteConfig.name}
               fill
               placeholder="blur"
-              className="object-cover"
+              className="object-cover scale-[1.5] object-[-4px_12px]"
               priority
             />
           </div>
           <div className="flex flex-col justify-center">
-            <h1 className="font-serif text-[28px] tracking-tight text-foreground sm:text-[32px]">
+            <h1 className=" text-[25px] font-bold tracking-tighter text-foreground sm:text-[28px]">
               {siteConfig.name}
             </h1>
-            <p className="mt-1 text-[15px] font-medium text-muted-foreground">
-              Full-Stack Engineer
-            </p>
+            <FlipWords
+              words={words}
+              duration={1000}
+              className="mt-0.5 -ms-2 text-[15.5px] font-medium text-muted-foreground"
+            />
           </div>
         </div>
 
         <div className="mt-8 animate" style={{ animationDelay: "80ms" }}>
           <p className="text-[15px] leading-[1.8] text-muted-foreground sm:text-base">
-            I build thoughtful web &amp; app experiences — clean architecture,
-            considered design, shipped code. Based in Lahore.
+            I build end-to-end web and mobile products with clean architecture,
+            practical AI integrations, and production-ready execution. Based in
+            Lahore.
           </p>
         </div>
 

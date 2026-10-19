@@ -1,30 +1,20 @@
 import type { Metadata } from "next";
-import {
-  Plus_Jakarta_Sans,
-  Instrument_Serif,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Manrope, Hanken_Grotesk } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { siteConfig } from "@/constants/site";
 import "./globals.css";
 
-const sans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+const bodyFont = Hanken_Grotesk({
+  variable: "--font-hanken-grotesk",
   subsets: ["latin"],
   display: "swap",
 });
 
-const serif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const headingFont = Manrope({
+  variable: "--font-space-grotesk",
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -45,9 +35,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${sans.variable} ${serif.variable} ${mono.variable} font-sans antialiased`}
+        className={`${bodyFont.variable} ${headingFont.variable} font-sans antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Navbar />
           <main className="min-h-[calc(100dvh-3.5rem)]">{children}</main>
           <Footer />

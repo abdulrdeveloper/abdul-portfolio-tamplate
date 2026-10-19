@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { projects } from "@/constants/projects";
+import { getTechSvgIcon } from "@/constants/tech-icons";
 import RaisedButton from "@/components/ui/RaisedBtn";
-
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -36,10 +35,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <div className="min-h-screen pb-24 pt-16">
       <Container>
         {/* Back Link */}
-        <div className="animate mb-10" style={{ animationDelay: "0ms" }}>
+        <div
+          className="animate-fade-in  mb-10"
+          style={{ animationDelay: "0ms" }}
+        >
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <svg
               width="14"
@@ -60,23 +62,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Header Section */}
         <div className="">
-          {/* Hero Image (Left Side) */}
-          {/* <div
-            className="animate order-2 lg:order-1 relative aspect-video w-full overflow-hidden rounded-2xl border border-border bg-muted/30 shadow-sm"
-            style={{ animationDelay: "150ms" }}
-          >
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div> */}
-
-          {/* Content (Right Side) */}
           <div
-            className="animate order-1 lg:order-2"
+            className="animate-fade-in  order-1 lg:order-2"
             style={{ animationDelay: "80ms" }}
           >
             <div className="mb-4 flex items-center gap-3">
@@ -85,11 +72,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl md:text-4xl  tracking-tight text-foreground text-balance">
+            <h1 className="font-serif text-2xl md:text-3xl tracking-tight text-foreground text-balance">
               {project.title}
             </h1>
 
-            <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p className="mt-5 text-xs md:text-sm leading-7 text-muted-foreground">
               {project.description}
             </p>
 
@@ -100,7 +87,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <RaisedButton>View Live Demo</RaisedButton>
+                  <RaisedButton className="h-auto rounded-lg px-3.5 py-1 text-[13px] font-medium leading-6">
+                    View Live Demo
+                  </RaisedButton>
                 </a>
               )}
               {project.githubUrl && (
@@ -108,7 +97,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-all duration-150 hover:bg-muted active:scale-[0.97]"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-transparent px-3.5 py-1 text-[13px] font-medium leading-6 text-foreground transition-all duration-150 hover:bg-muted active:scale-[0.97]"
                 >
                   <svg
                     width="14"
@@ -127,18 +116,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Content Section */}
         <div
-          className="animate mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-[1fr_250px] lg:gap-24"
+          className="animate-fade-in  mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-[1fr_250px] lg:gap-24"
           style={{ animationDelay: "430ms" }}
         >
           {/* Features / Details */}
           <div>
-            <h2 className="font-serif text-2xl  tracking-tight text-foreground">
+            <h2 className="font-serif text-xl tracking-tight text-foreground">
               Key Features
             </h2>
             <div className="mt-8 space-y-4">
               {project.features.map((feature, i) => (
                 <div key={i} className="flex gap-4">
-                  <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border bg-muted">
+                  <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-border bg-muted dark:bg-[#28272746]">
                     <svg
                       width="10"
                       height="10"
@@ -153,7 +142,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <p className="leading-relaxed text-muted-foreground">
+                  <p className="text-sm leading-7 text-muted-foreground">
                     {feature}
                   </p>
                 </div>
@@ -163,12 +152,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {/* Tech Stack Sidebar */}
           <div>
-            <h3 className="font-serif text-xl  tracking-tight text-foreground">
+            <h3 className="font-serif text-lg tracking-tight text-foreground">
               Tech Stack
             </h3>
             <div className="mt-6 flex flex-wrap gap-2">
               {project.technologies.map((tech) => (
-                <Badge key={tech.name} className="px-3 py-1">
+                <Badge
+                  key={tech.name}
+                  techIcon={getTechSvgIcon(tech.name)}
+                  techIconAlt={tech.name}
+                  className="px-2.5 py-0.5 text-[11px]"
+                >
                   {tech.name}
                 </Badge>
               ))}
