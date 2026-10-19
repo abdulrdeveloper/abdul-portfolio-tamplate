@@ -1,6 +1,8 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { projects } from "@/constants/projects";
 import { blogPosts } from "@/constants/blog";
+
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.abdulrahmanasif.dev";

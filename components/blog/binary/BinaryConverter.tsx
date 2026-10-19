@@ -26,7 +26,7 @@ function CharacterBreakdown({ char, index }: { char: string; index: number }) {
     >
       {/* Character */}
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-background/60 font-serif text-sm font-semibold text-foreground sm:h-9 sm:w-9 dark:bg-background/40">
-        {char === " " ? "␣" : char}
+        {char === "" ? "␣" : char}
       </span>
 
       {/* Arrow */}
@@ -97,7 +97,7 @@ function CharacterBreakdown({ char, index }: { char: string; index: number }) {
 
 export function BinaryConverter() {
   const [input, setInput] = useState("Hi");
-  const [mode, setMode] = useState<"encode" | "decode">("encode");
+  const [mode, setMode] = useState<"encode" |"decode">("encode");
 
   const characters = useMemo(() => {
     if (mode === "encode") {
@@ -121,7 +121,7 @@ export function BinaryConverter() {
         .slice(0, 12)
         .split("")
         .map((c) => charToBinary(c))
-        .join(" ");
+        .join("");
     }
     return characters.map((c) => c).join("");
   }, [input, characters, mode]);

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { siteConfig, socialLinks } from "@/constants/site";
 import avatar from "@/public/avatar.png";
 import { FlipWords } from "@/components/ui/FlipWords";
-import NamePlayer from "./NamePlayer";
 const words = ["Software Engineer", "Iterator"];
 
 export function HeroSection() {
@@ -11,8 +10,7 @@ export function HeroSection() {
     <section className="py-16">
       <div className="flex flex-col max-w-[72ch]">
         <div
-          className="flex items-center gap-5 animate"
-          style={{ animationDelay: "0ms" }}
+          className="flex items-center gap-5"
         >
           <div className="relative h-18 w-18 shrink-0 overflow-hidden rounded-full ring-1 ring-border">
             <Image
@@ -25,12 +23,9 @@ export function HeroSection() {
             />
           </div>
           <div className="flex flex-col justify-center">
-            <div className="flex items-center  gap-2">
-              <h1 className=" text-[25px] font-bold tracking-tighter text-foreground sm:text-[28px]">
-                {siteConfig.name}
-              </h1>
-              <NamePlayer />
-            </div>
+            <h1 className="text-[25px] font-bold tracking-tighter text-foreground sm:text-[28px]">
+              {siteConfig.name}
+            </h1>
             <FlipWords
               words={words}
               duration={1000}
@@ -39,7 +34,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="mt-8 animate" style={{ animationDelay: "80ms" }}>
+        <div className="mt-8">
           <p className="text-[15px] leading-[1.8] text-muted-foreground sm:text-base">
             I build end-to-end web and mobile products with clean architecture,
             practical AI integrations, and production-ready execution. Based in
@@ -48,8 +43,7 @@ export function HeroSection() {
         </div>
 
         <div
-          className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 animate"
-          style={{ animationDelay: "160ms" }}
+          className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
         >
           <Link
             href="/blog"

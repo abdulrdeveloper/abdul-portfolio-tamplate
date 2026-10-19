@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export const FlipWords = ({
@@ -27,7 +27,6 @@ export const FlipWords = ({
 
   useEffect(() => {
     if (!containerRef.current || typeof IntersectionObserver === "undefined") {
-      setIsInView(true);
       return;
     }
 
@@ -89,14 +88,13 @@ export const FlipWords = ({
             scale: 2,
             position: "absolute",
           }}
-          className={cn(
-            "z-10 inline-block relative text-left  px-2",
+          className={cn("z-10 inline-block relative text-left  px-2",
             className,
           )}
           key={currentWord}
         >
           {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
-          {currentWord.split(" ").map((word, wordIndex) => (
+          {currentWord.split("").map((word, wordIndex) => (
             <motion.span
               key={word + wordIndex}
               initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}

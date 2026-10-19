@@ -13,7 +13,6 @@ export const projects: Project[] = [
     slug: "triggerly",
     title: "Triggerly",
     subtitle: "Visual Workflow Automation",
-    postedDate: "POSTED 2 DAYS AGO",
     badges: ["PROJECT BASED", "REMOTE", "FULL STACK", "NEXT.JS 15"],
     description:
       "A visual workflow automation platform with a drag-and-drop node editor. Connect apps, trigger actions, and automate processes without code, powered by tRPC, Prisma, PostgreSQL, and Inngest background jobs.",
@@ -22,12 +21,12 @@ export const projects: Project[] = [
     liveUrl: "https://www.triggerly.online/",
     githubUrl: "https://github.com/abdulrahman-sde/triggerly.git",
     technologies: [
-      { name: "Next.js", icon: "/assets/icons/skills/nextjs.png" },
-      { name: "Inngest", icon: "/assets/icons/skills/inngest.svg" },
-      { name: "tRPC", icon: "/assets/icons/skills/trpc.svg" },
-      { name: "Prisma", icon: "/assets/icons/skills/prisma.png" },
-      { name: "Postgres", icon: "/assets/icons/skills/postgresql.png" },
-      { name: "Tailwind CSS", icon: "/assets/icons/skills/tailwindcss.png" },
+      { name: "Next.js" },
+      { name: "Inngest" },
+      { name: "tRPC" },
+      { name: "Prisma" },
+      { name: "Postgres" },
+      { name: "Tailwind CSS" },
     ],
     features: [
       "Drag-and-drop node editor for building workflows visually",
@@ -42,7 +41,6 @@ export const projects: Project[] = [
     slug: "kairoui",
     title: "Kairo UI",
     subtitle: "Free Landing Page Templates",
-    postedDate: "POSTED 5 DAYS AGO",
     badges: ["OPEN SOURCE", "FREE", "NEXT.JS 15", "TAILWIND"],
     description:
       "A growing collection of free, modern landing page templates built for developers. Copy, customize, and ship without sign-ups or paywalls.",
@@ -51,11 +49,11 @@ export const projects: Project[] = [
     liveUrl: "https://kairoui.online/",
     githubUrl: "https://github.com/abdulrahman-sde/ui-abdulrahman-dev.git",
     technologies: [
-      { name: "Next.js", icon: "/assets/icons/skills/nextjs.png" },
-      { name: "TypeScript", icon: "/assets/icons/skills/typescript.png" },
-      { name: "React", icon: "/assets/icons/skills/react.png" },
-      { name: "Tailwind CSS", icon: "/assets/icons/skills/tailwindcss.png" },
-      { name: "Shadcn UI", icon: "/assets/icons/skills/shadcnui.svg" },
+      { name: "Next.js" },
+      { name: "TypeScript" },
+      { name: "React" },
+      { name: "Tailwind CSS" },
+      { name: "Shadcn UI" },
     ],
     features: [
       "Free landing page templates ready to copy and paste",
@@ -69,7 +67,6 @@ export const projects: Project[] = [
     slug: "dealport",
     title: "DealPort",
     subtitle: "E-Commerce Admin & Analytics",
-    postedDate: "POSTED 1 WEEK AGO",
     badges: ["FULL TIME", "REMOTE", "REDIS", "GPT-4O"],
     description:
       "A full-stack e-commerce admin dashboard with advanced analytics. It features  visitor session tracking via Upstash Redis, GPT-4o powered content generation with streaming responses, and a nightly cron pipeline that snapshots sales, conversion funnels, and device analytics into daily metric records for high-performance reporting.",
@@ -79,11 +76,11 @@ export const projects: Project[] = [
     githubUrl:
       "https://github.com/abdulrahman-sde/Dealport-Ecommerce-Admin-Dashboard-.git",
     technologies: [
-      { name: "React", icon: "/assets/icons/skills/react.png" },
-      { name: "TypeScript", icon: "/assets/icons/skills/typescript.png" },
-      { name: "Node.js", icon: "/assets/icons/skills/nodejs.png" },
-      { name: "Prisma", icon: "/assets/icons/skills/prisma.png" },
-      { name: "Upstash Redis", icon: "/assets/icons/skills/redis.png" },
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "Node.js" },
+      { name: "Prisma" },
+      { name: "Upstash Redis" },
     ],
     features: [
       "Redis-backed anonymous-to-customer session tracking with device/geo capture",
@@ -98,7 +95,6 @@ export const projects: Project[] = [
     slug: "ai-resume-analyzer",
     title: "Unroll AI",
     subtitle: "Voice Agent & Evaluation AI",
-    postedDate: "POSTED YESTERDAY",
     badges: ["AI AGENT", "REMOTE", "LANGGRAPH", "LIVEKIT"],
     description:
       "An intelligent Resume Analyzer Agent that evaluates candidate resumes and provides structured hiring recommendations with a real-time voice agent. Features resume parsing, scoring logic, explainable decisions, a chatbot for queries, and a live voice agent powered by LiveKit, Deepgram, OpenAI, and ElevenLabs.",
@@ -107,11 +103,11 @@ export const projects: Project[] = [
     liveUrl: "https://unroll-ai-resume-analyzer.vercel.app/",
     githubUrl: "https://github.com/abdulrahman-sde/Resume-analyzer-prod.git",
     technologies: [
-      { name: "LangGraph", icon: "/assets/icons/skills/langgraph.png" },
-      { name: "FastAPI", icon: "/assets/icons/skills/fastapi.png" },
-      { name: "Next.js", icon: "/assets/icons/skills/nextjs.png" },
-      { name: "LiveKit", icon: "/assets/icons/skills/livekit.svg" },
-      { name: "OpenAI", icon: "/assets/icons/skills/openai.svg" },
+      { name: "LangGraph" },
+      { name: "FastAPI" },
+      { name: "Next.js" },
+      { name: "LiveKit" },
+      { name: "OpenAI" },
     ],
     features: [
       "Agentic AI pipeline for structured resume evaluation",
@@ -127,7 +123,6 @@ export const projects: Project[] = [
     slug: "healthpal",
     title: "HealthPal",
     subtitle: "Doctor Appointment Mobile App",
-    postedDate: "POSTED 3 WEEKS AGO",
     badges: ["MOBILE APP", "REACT NATIVE", "SUPABASE", "EXPO"],
     description:
       "A cross-platform React Native mobile app for doctor appointments with distinct doctor/patient role flows: booking, acceptance, rescheduling, and cancellation. Features Supabase for serverless auth & database, Redux Toolkit for global state, and Expo push notifications.",
@@ -135,11 +130,11 @@ export const projects: Project[] = [
     logo: "/assets/icons/skills/healthpal.svg",
     githubUrl: "https://github.com/abdulrahman-sde/bootcamp-healthpal-prod.git",
     technologies: [
-      { name: "React Native", icon: "/assets/icons/skills/reactnative.png" },
-      { name: "Supabase", icon: "/assets/icons/skills/supabase.png" },
-      { name: "Redux Toolkit", icon: "/assets/icons/skills/redux.svg" },
-      { name: "Expo", icon: "/assets/icons/skills/expo.svg" },
-      { name: "TypeScript", icon: "/assets/icons/skills/typescript.png" },
+      { name: "React Native" },
+      { name: "Supabase" },
+      { name: "Redux Toolkit" },
+      { name: "Expo" },
+      { name: "TypeScript" },
     ],
     features: [
       "Distinct doctor & patient role-based flows",
@@ -156,7 +151,6 @@ export const projects: Project[] = [
     slug: "chat-with-pdfs",
     title: "Talk with PDFs",
     subtitle: "Custom RAG Document Assistant",
-    postedDate: "POSTED 1 MONTH AGO",
     badges: ["RAG PIPELINE", "REMOTE", "PGVECTOR", "OPENAI"],
     description:
       "An AI document assistant with a custom RAG pipeline built from scratch (no LangChain) using Vercel AI SDK and pgvector. Streams AI responses directly into a chat UI with per-locument conversation state. Inngest background jobs automate PDF parsing and embedding generation.",
@@ -165,11 +159,11 @@ export const projects: Project[] = [
     liveUrl: "https://talkwithpdfs.vercel.app/",
     githubUrl: "https://github.com/abdulrahman-sde/talkwithpdfs.git",
     technologies: [
-      { name: "Next.js 15", icon: "/assets/icons/skills/nextjs.png" },
-      { name: "Postgres", icon: "/assets/icons/skills/postgresql.png" },
-      { name: "OpenAI", icon: "/assets/icons/skills/openai.svg" },
-      { name: "Vercel AI SDK", icon: "/assets/icons/skills/vercel.png" },
-      { name: "Inngest", icon: "/assets/icons/skills/inngest.svg" },
+      { name: "Next.js 15" },
+      { name: "Postgres" },
+      { name: "OpenAI" },
+      { name: "Vercel AI SDK" },
+      { name: "Inngest" },
     ],
     features: [
       "Custom RAG pipeline with pgvector (no LangChain)",
@@ -185,7 +179,6 @@ export const projects: Project[] = [
     slug: "logoai",
     title: "LogoAI",
     subtitle: "AI Prompt-to-Logo Platform",
-    postedDate: "POSTED 2 MONTHS AGO",
     badges: ["AI GENERATOR", "NEXT.JS", "GEMINI API", "B2B"],
     description:
       "An AI-powered logo generation platform with an end-to-end prompt-to-UI pipeline. User intent is enhanced through a prompt layer, sent to Gemini API + Pollinations AI, and rendered as a downloadable logo directly in the interface.",
@@ -195,11 +188,11 @@ export const projects: Project[] = [
     liveUrl: "https://logo-generator-tau.vercel.app/",
     githubUrl: "https://github.com/abdulrahman-sde/logo-generator.git",
     technologies: [
-      { name: "Next.js", icon: "/assets/icons/nextjs2.svg" },
-      { name: "Gemini API", icon: "/assets/icons/gemini.svg" },
-      { name: "Pollinations AI", icon: "/assets/images/pollinations.png" },
-      { name: "MongoDB", icon: "/assets/icons/mongodb.svg" },
-      { name: "Cloudinary", icon: "/assets/icons/cloudinary.png" },
+      { name: "Next.js" },
+      { name: "Gemini API" },
+      { name: "Pollinations AI" },
+      { name: "MongoDB" },
+      { name: "Cloudinary" },
     ],
     features: [
       "AI-powered logo generation from text prompts",
@@ -213,7 +206,6 @@ export const projects: Project[] = [
     slug: "storeit",
     title: "StoreIt",
     subtitle: "Cloud Storage & File Platform",
-    postedDate: "POSTED 2 MONTHS AGO",
     badges: ["CLOUD STORAGE", "NEXT.JS 15", "CLERK", "FULL STACK"],
     description:
       "A Google Drive–inspired file management platform powered by Next.js 15. Features automatic categorization, smart dashboard with upload limits and usage statistics, efficient search, and seamless file uploads.",
@@ -222,11 +214,11 @@ export const projects: Project[] = [
     liveUrl: "https://store-it-flame.vercel.app/",
     githubUrl: "https://github.com/abdulrehman-codecrafter/storeIt.git",
     technologies: [
-      { name: "Next.js 15", icon: "/assets/icons/nextjs2.svg" },
-      { name: "MongoDB", icon: "/assets/icons/mongodb.svg" },
-      { name: "Tailwind CSS", icon: "/assets/icons/tailwindcss.svg" },
-      { name: "Cloudinary", icon: "/assets/icons/cloudinary.png" },
-      { name: "Clerk", icon: "/assets/icons/clerk.webp" },
+      { name: "Next.js 15" },
+      { name: "MongoDB" },
+      { name: "Tailwind CSS" },
+      { name: "Cloudinary" },
+      { name: "Clerk" },
     ],
     features: [
       "Automatic file categorization (Documents, Images, Media, Others)",

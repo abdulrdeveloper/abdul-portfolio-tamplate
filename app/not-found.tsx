@@ -6,8 +6,7 @@ export default function NotFound() {
     <div className="min-h-screen pt-20">
       <Container>
         <div
-          className="animate-fade-in  py-2"
-          style={{ animationDelay: "0ms" }}
+          className="py-2"
         >
           <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Error 404

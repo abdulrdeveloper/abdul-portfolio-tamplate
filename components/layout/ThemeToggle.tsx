@@ -1,31 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
+import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
-import useSound from "use-sound";
 import Image from "next/image";
 import { Skeleton } from "../ui/Skeleton";
+
+const emptySubscribe = () => () => {};
+
 export const ThemeToggle = () => {
-  const [mounted, setMounted] = useState(false);
-  const [play] = useSound("/assets/audios/switch.ogg", { volume: 0.02 });
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted) {
     return (
       <button className="mx-2 mt-0.5 rounded-md border border-border bg-transparent p-1.5 transition-[background-color,color]">
-        <Skeleton className="h-3.75 w-3.75 rounded-[3px] " />
+        <Skeleton className="h-3.75 w-3.75 rounded-[3px]" />
       </button>
     );
   }
   return (
     <button
       onClick={() => {
-        play();
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
       }}
       className="mx-2 mt-0.5 rounded-md border border-border bg-transparent p-1.5 transition-[background-color,color]"

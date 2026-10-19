@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Hanken_Grotesk, Geist } from "next/font/google";
+import { Manrope, Hanken_Grotesk } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
@@ -11,10 +11,7 @@ import {
 } from "@/components/seo/JsonLd";
 import Script from "next/script";
 
-import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+import"./globals.css";
 
 const bodyFont = Hanken_Grotesk({
   variable: "--font-hanken-grotesk",
@@ -45,10 +42,7 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: {
       index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1,
     },
   },
   alternates: {
@@ -78,14 +72,6 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
     creator: "@abdulrahman_sde",
   },
-  ...(siteConfig.googleVerification && {
-    verification: {
-      google: siteConfig.googleVerification,
-    },
-  }),
-  other: {
-    "google-site-verification": siteConfig.googleVerification || "",
-  },
 };
 
 export default function RootLayout({
@@ -94,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${bodyFont.variable} ${headingFont.variable} font-sans antialiased bg-neutral-100`}
       >

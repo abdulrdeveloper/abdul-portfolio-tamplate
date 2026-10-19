@@ -73,8 +73,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <Container>
           {/* Back Link */}
           <div
-            className="animate-fade-in  mb-10"
-            style={{ animationDelay: "0ms" }}
+            className="mb-10"
           >
             <Link
               href="/projects"
@@ -98,11 +97,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           {/* Header Section */}
-          <div className="">
-            <div
-              className="animate-fade-in  order-1 lg:order-2"
-              style={{ animationDelay: "80ms" }}
-            >
+          <div>
               <div className="mb-4 flex items-center gap-3">
                 <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
                   {project.isApp ? "Mobile Application" : "Web Case Study"}
@@ -148,13 +143,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </a>
                 )}
               </div>
-            </div>
           </div>
 
           {/* Content Section */}
           <div
-            className="animate-fade-in  mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-[1fr_250px] lg:gap-24"
-            style={{ animationDelay: "430ms" }}
+            className="mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-[1fr_250px] lg:gap-24"
           >
             {/* Features / Details */}
             <div>

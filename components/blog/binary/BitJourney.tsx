@@ -4,8 +4,7 @@ const STAGES = [
   {
     id: "keyboard",
     label: "Keyboard",
-    description:
-      "A physical key press closes a circuit. A scan code (binary number) is sent to the keyboard controller.",
+    description: "A physical key press closes a circuit. A scan code (binary number) is sent to the keyboard controller.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <rect
@@ -64,8 +63,7 @@ const STAGES = [
   {
     id: "bus",
     label: "Data Bus",
-    description:
-      "The binary scan code travels as electrical voltage pulses across parallel copper traces on the motherboard.",
+    description: "The binary scan code travels as electrical voltage pulses across parallel copper traces on the motherboard.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         {[10, 14, 18, 22].map((y) => (
@@ -90,8 +88,7 @@ const STAGES = [
   {
     id: "cpu",
     label: "CPU Register",
-    description:
-      "The processor stores the byte in a register; a tiny set of flip-flop circuits made of transistors that hold charge.",
+    description: "The processor stores the byte in a register; a tiny set of flip-flop circuits made of transistors that hold charge.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <rect
@@ -138,8 +135,7 @@ const STAGES = [
   {
     id: "ram",
     label: "RAM",
-    description:
-      "The CPU writes the byte to main memory. Each bit becomes a charged (1) or discharged (0) capacitor.",
+    description: "The CPU writes the byte to main memory. Each bit becomes a charged (1) or discharged (0) capacitor.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <rect
@@ -199,8 +195,7 @@ const STAGES = [
   {
     id: "disk",
     label: "Storage (SSD)",
-    description:
-      "When saved, bits become electrons trapped in floating-gate transistors, persisting without power.",
+    description: "When saved, bits become electrons trapped in floating-gate transistors, persisting without power.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <rect
