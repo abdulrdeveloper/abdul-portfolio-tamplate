@@ -8,8 +8,8 @@ export const skills = [
 ];
 
 export const internship = {
-  company: "Supervance Labs",
-  logo: "/assets/companies/supervance-labs.webp",
+  company: "Spurvance Labs",
+  logo: "/assets/companies/spurvance-labs.webp",
   role: "Full Stack Developer Intern",
   period: "1 Oct 2026 – Present",
   duration: "3-month internship",
