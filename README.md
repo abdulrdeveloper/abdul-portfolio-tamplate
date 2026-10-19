@@ -150,6 +150,10 @@ Configure the host to resolve clean URLs to their exported HTML files and serve 
 
 The template uses root-relative URLs and is configured for deployment at a domain root. Hosting under a repository subdirectory requires additional configuration.
 
+For Vercel, [vercel.json](vercel.json) explicitly selects the Other preset, installs with `npm ci`, builds with `npm run build`, and publishes `out/` with clean URLs. This deploys the Next.js static export and overrides a stale output directory such as `dist` in project settings. Set Vercel's Root Directory to the folder containing `package.json` and `vercel.json`, and deploy a commit that includes this configuration.
+
+The repository does not include a hosting deployment workflow. For other hosts, configure the build command and output directory explicitly. Manage the domain, HTTPS, redirects, and caching in the chosen host. Rebuild and redeploy after editing local content, metadata, images, or the CV.
+
 No running Next.js server or `npm start` command is required.
 
 ## Structure
