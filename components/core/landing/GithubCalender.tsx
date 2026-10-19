@@ -43,7 +43,7 @@ export default function GithubCalendar() {
     <div className="mb-2 w-full rounded-xl py-4">
       <GitHubCalendar
         username="abdulrahman-sde"
-        className="github-calendar "
+        className="github-calendar"
         blockSize={11.7}
         blockRadius={3}
         colorScheme={isDark ? "dark" : "light"}

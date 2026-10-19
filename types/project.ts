@@ -1,8 +1,7 @@
-import { StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 
 export interface Technology {
   name: string;
-  icon: string;
 }
 
 export interface Project {
@@ -15,10 +14,8 @@ export interface Project {
   features: string[];
   liveUrl?: string;
   githubUrl?: string;
-  githubUrlFrontend?: string;
   logo?: string;
   isApp?: boolean;
   featured?: boolean;
-  postedDate?: string;
   badges?: string[];
 }

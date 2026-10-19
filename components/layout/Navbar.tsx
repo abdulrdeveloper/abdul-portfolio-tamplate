@@ -13,7 +13,7 @@ export function Navbar() {
           href="/"
           className="inline-flex items-center gap-2 text-foreground transition-opacity duration-150 hover:opacity-70"
         >
-          <div className="border py-2.5  px-2 rounded-lg ">
+          <div className="border py-2.5  px-2 rounded-lg">
             <Image
               src="/assets/logos/logo-2.png"
               alt="AR Logo"

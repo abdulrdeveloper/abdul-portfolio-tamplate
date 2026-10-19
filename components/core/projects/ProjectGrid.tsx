@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 import type { Project } from "@/types/project";
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
@@ -46,60 +44,3 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
     </div>
   );
 }
-
-export const Card = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) => {
-  return (
-    <div
-      className={cn(
-        "relative z-10 flex h-full flex-col justify-between rounded-2xl border border-border bg-[#c1bebe2d] p-5 text-card-foreground shadow-xs dark:bg-[#a8a29e12]",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-};
-
-export const CardTitle = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) => {
-  return (
-    <h3
-      className={cn(
-        "font-serif text-lg font-bold tracking-tight text-foreground",
-        className,
-      )}
-    >
-      {children}
-    </h3>
-  );
-};
-
-export const CardDescription = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) => {
-  return (
-    <p
-      className={cn(
-        "mt-0.5 font-sans text-xs text-muted-foreground",
-        className,
-      )}
-    >
-      {children}
-    </p>
-  );
-};

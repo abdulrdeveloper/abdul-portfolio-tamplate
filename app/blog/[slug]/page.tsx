@@ -72,22 +72,16 @@ export default async function Page({ params }: BlogPostPageProps) {
     <>
       <Container className="py-16">
         {/* Back link */}
-        <div className="animate-fade-in mb-8" style={{ animationDelay: "0ms" }}>
+        <div className="mb-8">
           <Button href="/blog" variant="link" className="text-xs">
             &larr; All Posts
           </Button>
         </div>
 
-        <Separator
-          className="animate-fade-in mb-10"
-          style={{ animationDelay: "40ms" }}
-        />
+        <Separator className="mb-10" />
 
         {/* Article */}
-        <article
-          className="animate-fade-in"
-          style={{ animationDelay: "80ms" }}
-        >
+        <article>
           <BlogContent />
         </article>
 

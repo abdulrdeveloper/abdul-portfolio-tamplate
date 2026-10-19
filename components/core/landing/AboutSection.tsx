@@ -2,30 +2,17 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CursorCard } from "@/components/ui/cursor-card";
 
 export function AboutSection() {
-  const baseDelay = 480;
-
   return (
     <section className="py-8">
-      <div
-        className="animate-fade-in "
-        style={{ animationDelay: `${baseDelay}ms` }}
-      >
-        <SectionHeader label="About" title="A Bit About Me" />
-      </div>
+      <SectionHeader label="About" title="A Bit About Me" />
       <div className="max-w-[72ch] space-y-2 text-sm leading-[1.8] text-muted-foreground">
-        <p
-          className="animate-fade-in "
-          style={{ animationDelay: `${baseDelay + 80}ms` }}
-        >
+        <p>
           I&apos;m a Computer Science graduate from GCU Faisalabad with a strong
           interest in full-stack engineering and AI.
         </p>
-        <p
-          className="animate-fade-in "
-          style={{ animationDelay: `${baseDelay + 160}ms` }}
-        >
+        <p>
           I enjoy building products that are technically solid, thoughtfully
-          designed, and genuinely useful. That's reflected in{" "}
+          designed, and genuinely useful. That&apos;s reflected in{" "}
           <CursorCard
             className="hover:bg-neutral-300"
             href="https://kairoui.online"
@@ -39,10 +26,7 @@ export function AboutSection() {
           reusable systems and exceptional developer experience.
         </p>
 
-        <p
-          className="animate-fade-in "
-          style={{ animationDelay: `${baseDelay + 320}ms` }}
-        >
+        <p>
           If you&apos;re building something worth building, bring me in early.
           That&apos;s where I add the most value. Let&apos;s connect and make it
           something people can&apos;t ignore.

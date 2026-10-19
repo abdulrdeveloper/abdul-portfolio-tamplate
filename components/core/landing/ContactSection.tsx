@@ -3,7 +3,7 @@ import { socialLinks } from "@/constants/site";
 
 export function ContactSection() {
   const emailLink = socialLinks.find((l) => l.url.startsWith("mailto:"));
-  const email = emailLink?.url.replace("mailto:", "") ?? "";
+  const email = emailLink?.url.replace("mailto:", "").trim() ?? "";
   const socials = socialLinks.filter((l) => !l.url.startsWith("mailto:"));
 
   return (

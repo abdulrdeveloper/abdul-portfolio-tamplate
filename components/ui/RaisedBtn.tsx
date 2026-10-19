@@ -10,7 +10,7 @@ interface RaisedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 const RaisedButton = React.forwardRef<HTMLButtonElement, RaisedButtonProps>(
   (props, ref) => {
     const {
-      color = "var(--foreground)",
+      color ="var(--foreground)",
       style,
       className,
       children,
@@ -26,12 +26,7 @@ const RaisedButton = React.forwardRef<HTMLButtonElement, RaisedButtonProps>(
           boxShadow: `0 4px 6px rgba(0,0,0,0.2)`,
           ...style,
         }}
-        className={cn(
-          "relative inline-flex appearance-none items-center justify-center rounded-xl border-0 px-4 py-2 text-sm font-medium transition-[transform,opacity]",
-          "active:scale-95 hover:opacity-90",
-          "before:absolute before:inset-0 before:rounded-inherit",
-          "before:bg-linear-to-b before:from-white/20 before:to-transparent",
-          "overflow-hidden cursor-pointer",
+        className={cn("relative inline-flex appearance-none items-center justify-center rounded-xl border-0 px-4 py-2 text-sm font-medium transition-[transform,opacity]", "active:scale-95 hover:opacity-90", "before:absolute before:inset-0 before:rounded-inherit", "before:bg-linear-to-b before:from-white/20 before:to-transparent", "overflow-hidden cursor-pointer",
           className,
         )}
       >
@@ -41,6 +36,6 @@ const RaisedButton = React.forwardRef<HTMLButtonElement, RaisedButtonProps>(
   },
 );
 
-RaisedButton.displayName = "RaisedButton";
+RaisedButton.displayName ="RaisedButton";
 
 export default RaisedButton;

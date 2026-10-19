@@ -47,9 +47,9 @@ function parsePeriod(period: string): { start: Date; end: Date | null } | null {
 
 function formatDuration(period: string): string {
   const parsed = parsePeriod(period);
-  if (!parsed) return "";
+  if (!parsed) return"";
   const end = parsed.end ?? new Date();
-  if (end < parsed.start) return "";
+  if (end < parsed.start) return"";
 
   const totalMonths =
     (end.getFullYear() - parsed.start.getFullYear()) * 12 +
@@ -121,15 +121,14 @@ function CompanyRow({ exp }: { exp: Experience }) {
   return (
     <div className="flex items-center gap-3">
       {exp.companyImage ? (
-        <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md  border border-border/80 ">
+        <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md  border border-border/80">
           <Image
             src={exp.companyImage}
             alt={`${exp.company} logo`}
             width={18}
             height={18}
-            className={cn(
-              "size-7 object-contain",
-              exp.company === "Aivex" && "size-6",
+            className={cn("size-7 object-contain",
+              exp.company === "Aivex" &&"size-6",
             )}
           />
         </div>
@@ -164,16 +163,14 @@ function PositionItem({ exp }: { exp: Experience }) {
   const duration = useMemo(() => formatDuration(exp.period), [exp.period]);
 
   return (
-    <div className="relative ">
+    <div className="relative">
       <button
         type="button"
         disabled={!hasDetails}
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className={cn(
-          "group/position relative block w-full select-none rounded-md px-2 py-1.5 text-left",
-          "before:absolute before:-right-1 before:-bottom-1 before:left-8 before:-top-1 before:rounded-md",
-          hasDetails && "hover:before:bg-muted/30",
+        className={cn("group/position relative block w-full select-none rounded-md px-2 py-1.5 text-left", "before:absolute before:-right-1 before:-bottom-1 before:left-8 before:-top-1 before:rounded-md",
+          hasDetails &&"hover:before:bg-muted/30",
         )}
       >
         <div className="relative z-1 flex items-center ms-6 gap-2.5 text-base">
@@ -284,9 +281,7 @@ function ExperienceItem({ exp }: { exp: Experience }) {
 export function ExperienceSection() {
   return (
     <section className="py-16">
-      <div className="animate-fade-in" style={{ animationDelay: "0ms" }}>
-        <SectionHeader label="Experience" title="Where I've Worked" />
-      </div>
+      <SectionHeader label="Experience" title="Where I've Worked" />
       <div>
         {experiences.map((exp) => (
           <ExperienceItem key={exp.company} exp={exp} />

@@ -49,8 +49,6 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/in/abdul-rahman-sde",
     email: "mailto:abdulrahman.sde@gmail.com",
   },
-  // Add your Google Search Console verification code here
-  googleVerification: "",
 };
 
 export const navItems: NavItem[] = [

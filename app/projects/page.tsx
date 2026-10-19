@@ -12,15 +12,13 @@ import {
 
 export const metadata: Metadata = {
   title: "Projects - Full-Stack & AI Developer Portfolio",
-  description:
-    "Explore full-stack and AI projects by Abdul Rahman Asif including agentic AI pipelines, RAG systems, React Native mobile apps, Next.js web applications, and developer tools. Software engineer portfolio showcasing production-grade work.",
+  description: "Explore full-stack and AI projects by Abdul Rahman Asif including agentic AI pipelines, RAG systems, React Native mobile apps, Next.js web applications, and developer tools. Software engineer portfolio showcasing production-grade work.",
   alternates: {
     canonical: `${siteConfig.url}/projects`,
   },
   openGraph: {
     title: "Projects - Abdul Rahman Asif | Full-Stack & AI Portfolio",
-    description:
-      "Full-stack and AI projects from agentic pipelines and RAG systems to mobile apps and VS Code themes.",
+    description: "Full-stack and AI projects from agentic pipelines and RAG systems to mobile apps and VS Code themes.",
     url: `${siteConfig.url}/projects`,
     type: "website",
   },
@@ -30,20 +28,16 @@ export default function ProjectsPage() {
   return (
     <>
       <Container className="py-16">
-        <div className="animate-fade-in " style={{ animationDelay: "0ms" }}>
-          <SectionHeader label="Work" title="Projects" />
-        </div>
+        <SectionHeader label="Work" title="Projects" />
         <p
-          className="animate-fade-in  mb-10 max-w-md text-muted-foreground leading-relaxed"
-          style={{ animationDelay: "80ms" }}
+          className="mb-10 max-w-md text-muted-foreground leading-relaxed"
         >
           A collection of things I&apos;ve built: AI agents, full-stack apps,
           mobile experiences, and developer tools.
         </p>
 
         <div
-          className="mb-12 animate-fade-in "
-          style={{ animationDelay: "160ms" }}
+          className="mb-12"
         >
           <ProjectGrid projects={projects} />
         </div>
