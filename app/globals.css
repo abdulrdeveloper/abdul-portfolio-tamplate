@@ -19,37 +19,13 @@
   --accent: #78716c;
   --accent-foreground: #ffffff;
 
-  /* Hover spotlight glow (Aceternity) */
-  --glow: #e5e5e5;
-
-  /* Spacing scale (rem) */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --space-4xl: 6rem;
-  --space-5xl: 8rem;
-
-  /* Radii */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
   --radius-full: 9999px;
-
-  /* Transitions */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
 
   /* Scrollbar */
   --scrollbar-track: var(--muted);
   --scrollbar-thumb: color-mix(in srgb, var(--accent) 72%, var(--background));
   --scrollbar-thumb-hover: var(--accent);
 
-  --text-sm: 0.92rem;
 }
 
 .dark {
@@ -63,8 +39,6 @@
   --ring: #a8a29e;
   --accent: #a8a29e;
   --accent-foreground: #0c0a09;
-
-  --glow: rgb(30 41 59 / 0.8);
 
   --scrollbar-track: color-mix(in srgb, var(--muted) 86%, var(--background));
   --scrollbar-thumb: color-mix(in srgb, var(--accent) 65%, var(--background));
@@ -82,12 +56,8 @@
   --color-ring: var(--ring);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-glow: var(--glow);
   --font-sans: var(--font-hanken-grotesk);
   --font-serif: var(--font-space-grotesk);
-  --font-grotesk: var(--font-space-grotesk);
-  --text-sm: var(--text-sm);
-  /* --font-mono: var(--font-jetbrains-mono); */
 }
 
 *,
@@ -99,7 +69,6 @@
 body {
   background-color: var(--background);
   background-image: url("/noise-compressed.png");
-  z-index: -1;
   background-size: 130px 130px;
   background-position: 0 0;
   color: var(--foreground);
@@ -146,70 +115,38 @@ html {
   background: var(--scrollbar-thumb-hover);
 }
 
-.projectCardShadow {
-  box-shadow:
-    1px 1px rgba(40, 40, 40, 0.633),
-    -1px -1px rgb(40, 40, 40, 0.633);
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
 }
 
-/* ─── Animation keyframes ────────────────────────────── */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    filter: blur(6px);
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translateY(0);
-  }
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: var(--foreground);
+  color: var(--background);
 }
 
-@keyframes bounce-click {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.15);
-  }
-  60% {
-    /* transform: scale(0.9); */
-  }
-  100% {
-    transform: scale(1);
-  }
+.skip-link:focus {
+  top: 8px;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0px);
-  }
+@keyframes title-reveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-bounce-click {
-  animation: bounce-click 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+.hero-title {
+  animation: title-reveal 600ms ease-out both;
 }
 
-/* .animate-fade-in {
-  animation: fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-} */
-
-/* .animate-fade-up {
-  animation: fade-in 0.45s ease both;
-} */
-
-/* ─── Reduced motion ─────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in -fade-up,
-  .animate-fade-in -fade-in {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
+  .hero-title { animation: none; }
 }
+

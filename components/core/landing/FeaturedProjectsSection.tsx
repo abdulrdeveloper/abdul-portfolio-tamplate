@@ -8,13 +8,10 @@ export function FeaturedProjectsSection() {
 
   return (
     <section className="py-16">
-      <div className="animate-fade-in " style={{ animationDelay: "0ms" }}>
-        <SectionHeader label="Work" title="Featured Projects" />
-      </div>
+      <SectionHeader label="Work" title="Featured Projects" />
       <ProjectGrid projects={featured} />
       <div
-        className="animate-fade-in  mt-8 text-center"
-        style={{ animationDelay: "400ms" }}
+        className="mt-8 text-center"
       >
         <Link
           href="/projects"

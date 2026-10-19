@@ -1,43 +1,25 @@
 import Link from "next/link";
+import { Space_Grotesk } from "next/font/google";
 import { Container } from "@/components/ui/Container";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { NavLinks } from "@/components/layout/NavLinks";
-import { siteConfig } from "@/constants/site";
-import Image from "next/image";
+
+const brandFont = Space_Grotesk({
+  subsets: ["latin"],
+  weight: "600",
+  display: "swap",
+});
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-[url(/noise-compressed.png)] bg-background bg-size-[auto_90px]  backdrop-blur-md">
-      <Container className="flex h-14 items-center justify-between">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-foreground transition-opacity duration-150 hover:opacity-70"
-        >
-          <div className="border py-2.5  px-2 rounded-lg ">
-            <Image
-              src="/assets/logos/logo-2.png"
-              alt="AR Logo"
-              width={25}
-              height={15}
-              className="block   dark:hidden"
-            />
-            <Image
-              src="/assets/logos/logo-1.png"
-              alt="AR Logo"
-              width={25}
-              height={15}
-              className="hidden   dark:block"
-            />
-          </div>
-          <span className="text-sm hidden sm:block font-medium tracking-tight">
-            {siteConfig.name}
-          </span>
+    <header className="sticky top-0 z-50 border-b border-border bg-background bg-[url(/noise-compressed.png)] bg-size-[auto_90px] backdrop-blur-md">
+      <Container className="flex min-h-14 flex-wrap items-center justify-between gap-x-2 gap-y-1 py-2 sm:py-0">
+        <Link href="/" aria-label="abdulrdeveloper — Home" className={`${brandFont.className} text-[15px] font-semibold tracking-[-0.045em] transition-opacity hover:opacity-70 sm:text-[17px]`}>
+          abdulrdeveloper
         </Link>
-        <nav className="flex items-center">
+        <nav aria-label="Main navigation" className="flex items-center">
           <NavLinks />
-          <div className="ml-2 border-l border-border pl-2">
-            <ThemeToggle />
-          </div>
+          <div className="ml-1 border-l border-border pl-1"><ThemeToggle /></div>
         </nav>
       </Container>
     </header>

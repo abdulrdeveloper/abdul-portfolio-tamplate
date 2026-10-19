@@ -1,81 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import { siteConfig, socialLinks } from "@/constants/site";
+import { siteConfig } from "@/constants/site";
 import avatar from "@/public/avatar.png";
-import { FlipWords } from "@/components/ui/FlipWords";
-import NamePlayer from "./NamePlayer";
-const words = ["Software Engineer", "Iterator"];
 
 export function HeroSection() {
   return (
-    <section className="py-16">
-      <div className="flex flex-col max-w-[72ch]">
-        <div
-          className="flex items-center gap-5 animate"
-          style={{ animationDelay: "0ms" }}
-        >
-          <div className="relative h-18 w-18 shrink-0 overflow-hidden rounded-full ring-1 ring-border">
-            <Image
-              src={avatar}
-              alt={siteConfig.name}
-              fill
-              placeholder="blur"
-              className="object-cover scale-[1.13] object-[-20px_3px]"
-              priority
-            />
+    <section className="py-16" aria-labelledby="hero-name">
+      <div className="flex max-w-[72ch] flex-col">
+        <div className="flex items-center gap-5">
+          <div className="relative size-18 shrink-0 overflow-hidden rounded-full ring-1 ring-border">
+            <Image src={avatar} alt="Abdul Rahman" fill priority placeholder="blur" sizes="72px" className="object-cover" />
           </div>
-          <div className="flex flex-col justify-center">
-            <div className="flex items-center  gap-2">
-              <h1 className=" text-[25px] font-bold tracking-tighter text-foreground sm:text-[28px]">
-                {siteConfig.name}
-              </h1>
-              <NamePlayer />
-            </div>
-            <FlipWords
-              words={words}
-              duration={1000}
-              className="mt-0.5 -ms-2 text-[15.5px] font-medium text-muted-foreground"
-            />
+          <div>
+            <h1 id="hero-name" className="text-[25px] font-bold tracking-tighter sm:text-[28px]">{siteConfig.name}</h1>
+            <p className="hero-title mt-1 text-[15.5px] font-medium text-muted-foreground">Full Stack Developer</p>
           </div>
         </div>
-
-        <div className="mt-8 animate" style={{ animationDelay: "80ms" }}>
-          <p className="text-[15px] leading-[1.8] text-muted-foreground sm:text-base">
-            I build end-to-end web and mobile products with clean architecture,
-            practical AI integrations, and production-ready execution. Based in
-            Lahore.
-          </p>
-        </div>
-
-        <div
-          className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 animate"
-          style={{ animationDelay: "160ms" }}
-        >
-          <Link
-            href="/blog"
-            className="text-[14px] font-medium text-foreground underline decoration-border underline-offset-[3px] transition-colors duration-150 hover:decoration-foreground"
-          >
-            Read Blog
-          </Link>
-          {socialLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[14px] font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="/abdulrahman.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[14px] font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground"
-          >
-            Resume
-          </a>
+        <p className="mt-8 text-[15px] leading-[1.8] text-muted-foreground sm:text-base">
+          I build full-stack web applications with React, Next.js, TypeScript,
+          and Node.js. Self-taught developer and Computer Science student based
+          in Sheikhupura, Pakistan.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
+          <Link href="/projects" className="font-medium underline decoration-border underline-offset-4 hover:decoration-foreground">View Projects <span aria-hidden="true">↗</span></Link>
+          <Link href="/blog" className="text-muted-foreground hover:text-foreground">Read Blog</Link>
+          <a href="#contact" className="text-muted-foreground hover:text-foreground">Get in Touch</a>
         </div>
       </div>
     </section>

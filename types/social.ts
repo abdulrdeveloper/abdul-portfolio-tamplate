@@ -1,5 +1,5 @@
 export interface SocialLink {
-  name: string;
+  name: "GitHub" | "LinkedIn" | "X" | "Hashnode" | "Instagram" | "WhatsApp" | "Email" | "CV";
   url: string;
 }
 

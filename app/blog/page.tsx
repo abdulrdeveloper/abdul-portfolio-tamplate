@@ -1,83 +1,35 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { SectionHeader } from "@/components/shared/SectionHeader";
 import { BlogCard } from "@/components/core/blogs/BlogCard";
 import { blogPosts } from "@/constants/blog";
 import { siteConfig } from "@/constants/site";
 import { JsonLd, getBreadcrumbSchema, getBlogCollectionSchema } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Blog - Engineering Insights & Software Development",
-  description:
-    "Read engineering articles by Abdul Rahman Asif on full-stack development, React, Next.js, AI integrations, and software architecture. Practical insights from a working software engineer.",
-  alternates: {
-    canonical: `${siteConfig.url}/blog`,
-  },
+  title: "Blog",
+  description: "Articles by Abdul Rahman on JavaScript, Node.js, Express, databases, and the things learned while building web applications.",
+  alternates: { canonical: `${siteConfig.url}/blog` },
   openGraph: {
-    title: "Blog - Abdul Rahman Asif | Engineering & Development",
-    description:
-      "Practical engineering articles on code, design, architecture, and the craft of building software.",
+    title: "Blog | Abdul Rahman",
+    description: "Notes on web development, projects, and things worth sharing.",
     url: `${siteConfig.url}/blog`,
-    type: "website",
   },
 };
 
 export default function BlogPage() {
-  const sorted = [...blogPosts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
-  const isComingSoonFromContentful = false;
   return (
     <>
       <Container className="py-16">
-        {isComingSoonFromContentful ? (
-          <div
-            className="animate-fade-in  py-2"
-            style={{ animationDelay: "160ms" }}
-          >
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Coming Soon
-            </span>
-            <h2 className="mt-3 font-serif text-xl tracking-tight text-foreground md:text-2xl">
-              Blog posts are on the way.
-            </h2>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground ">
-              I&apos;m preparing practical write-ups on engineering decisions,
-              product building, and lessons from real projects. The first
-              articles will be published here soon.
-            </p>
-          </div>
-        ) : (
-          <div>
-            <div className="animate-fade-in " style={{ animationDelay: "0ms" }}>
-              <SectionHeader label="Writing" title="Blog" />
-            </div>
-            <p
-              className="animate-fade-in  mb-10 max-w-md text-muted-foreground leading-relaxed"
-              style={{ animationDelay: "80ms" }}
-            >
-              Thoughts on code, design, and the craft of building software.
-            </p>
-            {sorted.map((post, i) => (
-              <div
-                key={post.slug}
-                className="animate-fade-in "
-                style={{ animationDelay: `${160 + i * 80}ms` }}
-              >
-                <BlogCard post={post} />
-              </div>
-            ))}
-          </div>
-        )}
+        <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">Writing</p>
+        <h1 className="font-serif text-3xl font-semibold">Blog</h1>
+        <p className="mb-6 mt-5 text-sm leading-relaxed text-muted-foreground">
+          Writing about web development as I learn — projects, mistakes, and
+          things worth sharing. Full articles are published on my blog.
+        </p>
+        <div>{blogPosts.map((post) => <BlogCard key={post.slug} post={post} />)}</div>
+        <a href={siteConfig.blogUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-block text-sm underline decoration-border underline-offset-4">Visit the full blog <span aria-hidden="true">↗</span></a>
       </Container>
-
-      {/* Structured data */}
-      <JsonLd
-        data={getBreadcrumbSchema([
-          { name: "Home", url: siteConfig.url },
-          { name: "Blog", url: `${siteConfig.url}/blog` },
-        ])}
-      />
+      <JsonLd data={getBreadcrumbSchema([{ name: "Home", url: siteConfig.url }, { name: "Blog", url: `${siteConfig.url}/blog` }])} />
       <JsonLd data={getBlogCollectionSchema()} />
     </>
   );
