@@ -1,49 +1,180 @@
-# Abdul Rahman — Portfolio
+# Developer Portfolio Template
 
-A personal portfolio for a self-taught Full Stack Developer and Computer Science student. Includes selected projects, education, a current internship, and links to technical articles.
+A customizable portfolio template for developers who want to showcase their projects, experience, education, and technical writing.
 
-Built with Next.js, TypeScript, and Tailwind CSS. Pages export as static files; no database, API keys, or application backend is required. The theme toggle and live GitHub activity run in the browser.
+Built with **Next.js, TypeScript, and Tailwind CSS**, with static export support and editable content files.
 
-## Development
+The included profile demonstrates the template. Replace it with your own details before publishing.
 
-Use Node.js 20.9 or newer and npm.
+## Features
+
+- Responsive layouts with light and dark themes.
+- Introduction, skills, experience, and education sections.
+- Project collection with individual project pages.
+- Blog previews linking to externally published articles.
+- Live GitHub follower count and contribution calendar.
+- Social links, contact information, and a PDF CV link.
+- Page metadata, social sharing cards, structured data, sitemap, and robots file.
+- Keyboard focus indicators, skip navigation, and reduced-motion handling.
+- Static deployment without an application backend or database.
+
+## Tech stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | Next.js 16 and React 19 |
+| Language | TypeScript |
+| Styling | Tailwind CSS 4 |
+| Themes | next-themes |
+| Content | Local TypeScript files |
+| Deployment | Static export |
+
+## Quick start
+
+Use Node.js **20.9 or newer** and npm.
+
+Fork this repository, then clone your fork. Alternatively, clone the template directly:
 
 ```bash
+git clone https://github.com/abdulrdeveloper/abdul-portfolio-tamplate.git
+cd abdul-portfolio-tamplate
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000.
+Open [localhost:3000](http://localhost:3000).
+
+No API keys, database, or environment file are required. Installing dependencies and downloading Google fonts during builds requires network access.
+
+## Make it yours
+
+| Update | File or directory |
+| --- | --- |
+| Name, domain, email, navigation, and social links | [`constants/site.ts`](constants/site.ts) |
+| Skills, experience, and education | [`constants/profile.ts`](constants/profile.ts) |
+| Projects, technologies, features, and demo/source links | [`constants/projects.ts`](constants/projects.ts) |
+| Blog previews and external article links | [`constants/blog.ts`](constants/blog.ts) |
+| Hero introduction | [`HeroSection.tsx`](components/core/landing/HeroSection.tsx) |
+| Personal story | [`AboutSection.tsx`](components/core/landing/AboutSection.tsx) |
+| Contact introduction | [`ContactSection.tsx`](components/core/landing/ContactSection.tsx) |
+| Profile photo | `public/avatar.png` |
+| Favicon | `public/favicon.png` |
+| CV | `public/Abdul_Rahman_CV.pdf` |
+| Project and organization logos | `public/assets/` |
+| Social sharing artwork | `public/og-image.svg` and `public/og-image.png` |
+
+### Personalization checklist
+
+- Replace the example identity, biography, contact links, and CV.
+- Add only your own projects, skills, education, and experience.
+- Remove unused sections from [`app/page.tsx`](app/page.tsx).
+- Set your deployed domain in `constants/site.ts`.
+- Update your GitHub profile URL to load your activity.
+- Replace the avatar, favicon, logos, and sharing artwork.
+- Review names and descriptions in page metadata and structured data.
+- Search the source for `Abdul Rahman`, `abdulrdeveloper`, and `Spurvance` to catch remaining example content.
+
+Some personal details are written directly in components, metadata, and [`components/seo/JsonLd.tsx`](components/seo/JsonLd.tsx), so updating the constants alone does not replace every reference.
+
+Editing the sharing SVG does not automatically regenerate its PNG.
+
+### Projects
+
+Edit `constants/projects.ts` to add or remove projects. Each project entry generates a detail page at `/projects/[slug]`.
+
+Update its description, technologies, features, logo, demo URL, and source URL. Rebuild after changing project entries.
+
+### Blog previews
+
+Edit `constants/blog.ts` with your article titles, descriptions, publication dates, and URLs.
+
+Entries are sorted newest first. The homepage shows the latest three, while `/blog` lists all previews. Full articles open on your external blog.
+
+Article previews are maintained manually; publishing an article elsewhere does not automatically update the portfolio.
+
+### CV
+
+Replace `public/Abdul_Rahman_CV.pdf` with your own document. If you rename it, update the CV link in `constants/site.ts`.
+
+## GitHub integration
+
+The template fetches public follower data from GitHub and contribution data from a separate contribution-calendar provider.
+
+The username is derived from your GitHub URL in `constants/site.ts`. No token is required.
+
+Activity loads in the browser and refreshes every 24 hours while the page remains open. Loading, unavailable, and failed-refresh states are included. Provider caching and rate limits can affect the displayed data.
+
+## Routes
+
+| Route | Content |
+| --- | --- |
+| `/` | Main portfolio |
+| `/projects` | Project collection |
+| `/projects/[slug]` | Project details |
+| `/blog` | External article previews |
+| `/robots.txt` | Crawler rules |
+| `/sitemap.xml` | Generated sitemap |
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run lint` | Run ESLint |
+| `npm run build` | Check TypeScript, build, and export the site |
+
+## SEO configuration
+
+The template includes default and page-specific metadata, canonical URLs, social sharing metadata, and JSON-LD structured data.
+
+Review:
+
+- [`app/layout.tsx`](app/layout.tsx) for default metadata.
+- Project and blog pages for page-specific metadata.
+- [`components/seo/JsonLd.tsx`](components/seo/JsonLd.tsx) for structured data.
+- [`app/sitemap.ts`](app/sitemap.ts) and [`app/robots.ts`](app/robots.ts) for crawl configuration.
+
+Set your own domain and identity before deployment. Search Console verification is not preconfigured.
+
+## Deploy
 
 ```bash
+npm ci
 npm run lint
 npm run build
 ```
 
-The production build is exported to `out/`. Deploy that directory to a static host with clean-URL support and `404.html` configured as its not-found page. There is no production server command because this is a static export.
+Publish the contents of **`out/`** to a static host.
 
-## Updating content
+Configure the host to resolve clean URLs to their exported HTML files and serve `404.html` with a 404 status for unknown routes. Include all generated assets.
 
-- `constants/site.ts`: name, domain, contact information, navigation, and social links.
-- `constants/profile.ts`: skills, education, and the current internship.
-- `constants/projects.ts`: project summaries, technologies, features, and demo/source links. Each entry generates a project page.
-- `constants/blog.ts`: article titles, short descriptions, publication dates, and original URLs. Titles, dates, and URLs come from the blog’s RSS feed and sitemap. Entries are sorted newest first; the homepage shows three and `/blog` lists all articles.
-- `components/core/landing/AboutSection.tsx`: personal introduction.
-- `public/avatar.png`: locally stored GitHub profile image.
-- `public/assets/tech/`: locally served SVG technology icons from [Devicon](https://github.com/devicons/devicon) and [Simple Icons](https://github.com/simple-icons/simple-icons), with their upstream licenses included. The shared `Badge` component displays them in About and project tech stacks; the icon map is in `constants/tech-icons.ts`.
-- `public/assets/projects/`: the four supplied project logos, with outer backgrounds removed using imagegen. The edit prompt preserves each logo’s geometry, colors, and internal badge fill while making only its surrounding canvas transparent.
-- `public/og-image.svg` and `public/og-image.png`: sharing artwork source and rendered image.
+The template uses root-relative URLs and is configured for deployment at a domain root. Hosting under a repository subdirectory requires additional configuration.
 
-Full articles remain on [blog.abdulrdeveloper.me](https://blog.abdulrdeveloper.me). The portfolio contains article previews, not duplicate article pages. Add an entry and rebuild to feature a new article.
+No running Next.js server or `npm start` command is required.
 
 ## Structure
 
-`app/` defines the pages, metadata, sitemap, and robots file. `components/` holds the existing layout and small reusable sections. `constants/` stores editable content, `types/` defines the project and article shapes, and `lib/utils.ts` holds shared class-name and date helpers.
+```text
+app/             Pages, styles, metadata, sitemap, and robots
+components/      Portfolio sections, layout, and reusable UI
+constants/       Site settings and editable content
+lib/             GitHub requests and shared utilities
+public/          Images, icons, logos, and CV
+types/           Shared TypeScript types
+```
 
-`lib/github.ts` fetches the follower count from GitHub’s public user API and the contribution calendar from [github-contributions-api](https://github.com/grubersjoe/github-contributions-api). The username comes from the GitHub profile URL in `constants/site.ts`. These are the only external runtime data requests; no GitHub token is exposed or required.
+## Contributing and support
 
-GitHub activity loads when the page opens, refreshes every 24 hours while open, and refreshes when an overdue background tab becomes visible. The calendar automatically requests and displays the complete current calendar year. Provider caching can delay updates. Failed requests show an unavailable message instead of invented counts; successful data remains visible if a later refresh fails. The GitHub profile link remains available without JavaScript.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance and [SUPPORT.md](SUPPORT.md) for troubleshooting.
 
-Styling retains the original neutral palette, textured background, and compact cards. The hero reveal respects reduced-motion preferences.
+Follow the [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately using [SECURITY.md](SECURITY.md).
 
-The original owner's projects, experience, article, resume, tracking script, and unused assets have been removed. A resume link can be added once an up-to-date personal CV is available.
+When publishing your own fork, update the documentation’s repository links and maintainer contacts too.
+
+## License
+
+The template code is available under the [MIT License](LICENSE). You can use, modify, and redistribute it, including commercially, while preserving the required copyright and license notice.
+
+Technology icons retain their existing [Devicon](public/assets/tech/LICENSE.devicon) and [Simple Icons](public/assets/tech/LICENSE.simple-icons) notices.
+
+Replace the example personal content and respect third-party logo and asset rights when creating your own portfolio.
