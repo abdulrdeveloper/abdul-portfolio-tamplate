@@ -6,9 +6,6 @@ interface SeparatorProps {
 
 export function Separator({ className }: SeparatorProps) {
   return (
-    <hr
-      className={cn("border-t border-border", className)}
-      role="separator"
-    />
+    <hr className={cn("border-t border-border", className)} role="separator" />
   );
 }

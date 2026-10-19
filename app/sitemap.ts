@@ -1,47 +1,14 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/constants/projects";
-import { blogPosts } from "@/constants/blog";
+import { siteConfig } from "@/constants/site";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.abdulrahmanasif.dev";
-  const now = new Date().toISOString();
-
-  const defaultPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+  return [
+    { url: siteConfig.url },
+    { url: `${siteConfig.url}/projects` },
+    { url: `${siteConfig.url}/blog` },
+    ...projects.map((project) => ({ url: `${siteConfig.url}/projects/${project.slug}` })),
   ];
-
-  const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
-
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.date ? new Date(post.date).toISOString() : now,
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
-
-  return [...defaultPages, ...projectPages, ...blogPages];
 }

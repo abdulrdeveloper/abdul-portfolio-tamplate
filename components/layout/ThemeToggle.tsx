@@ -18,13 +18,15 @@ export const ThemeToggle = () => {
 
   if (!mounted) {
     return (
-      <button className="mx-2 mt-0.5 rounded-md border border-border bg-transparent p-1.5 transition-[background-color,color]">
+      <button type="button" aria-label="Switch color theme" disabled className="mx-2 mt-0.5 rounded-md border border-border bg-transparent p-1.5 transition-[background-color,color]">
         <Skeleton className="h-3.75 w-3.75 rounded-[3px]" />
       </button>
     );
   }
   return (
     <button
+      type="button"
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       onClick={() => {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
       }}
