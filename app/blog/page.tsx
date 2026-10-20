@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui/Container";
-import { BlogCard } from "@/components/core/blogs/BlogCard";
-import { blogPosts } from "@/constants/blog";
-import { siteConfig } from "@/constants/site";
-import { JsonLd, getBreadcrumbSchema, getBlogCollectionSchema } from "@/components/seo/JsonLd";
+import { Container } from "@/components/Layout";
+import { BlogCard } from "@/components/BlogCard";
+import { blogPosts } from "@/utils/blog";
+import { siteConfig } from "@/utils/site";
+import { JsonLd, getBreadcrumbSchema, getBlogCollectionSchema } from "@/utils/seo";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Articles by Abdul Rahman on JavaScript, Node.js, Express, databases, and the things learned while building web applications.",
+  description: `Articles by ${siteConfig.name} on JavaScript, Node.js, Express, databases, and the things learned while building web applications.`,
   alternates: { canonical: `${siteConfig.url}/blog` },
   openGraph: {
-    title: "Blog | Abdul Rahman",
+    title: `Blog | ${siteConfig.name}`,
     description: "Notes on web development, projects, and things worth sharing.",
     url: `${siteConfig.url}/blog`,
   },

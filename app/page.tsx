@@ -1,33 +1,34 @@
-import { Container } from "@/components/ui/Container";
-import { Separator } from "@/components/ui/Separator";
-import { HeroSection } from "@/components/core/landing/HeroSection";
-import { AboutSection } from "@/components/core/landing/AboutSection";
-import { GitHubSection } from "@/components/core/landing/GitHubSection";
-import { ExperienceSection } from "@/components/core/landing/ExperienceSection";
-import { EducationSection } from "@/components/core/landing/EducationSection";
-import { FeaturedProjectsSection } from "@/components/core/landing/FeaturedProjectsSection";
-import { WritingSection } from "@/components/core/landing/WritingSection";
-import { ContactSection } from "@/components/core/landing/ContactSection";
-import { JsonLd, getProfilePageSchema } from "@/components/seo/JsonLd";
+import { Container } from "@/components/Layout";
+import { GitHubActivity } from "@/components/GitHubActivity";
+import { JsonLd, getProfilePageSchema } from "@/utils/seo";
+import {
+  HeroSection,
+  AboutSection,
+  FeaturedProjectsSection,
+  ExperienceSection,
+  EducationSection,
+  WritingSection,
+  ContactSection,
+} from "@/components/sections";
 
 export default function Home() {
   return (
     <>
       <Container>
         <HeroSection />
-        <Separator />
+        <hr className="border-t border-border" role="separator" />
         <AboutSection />
-        <Separator />
-        <GitHubSection />
-        <Separator />
+        <hr className="border-t border-border" role="separator" />
+        <GitHubActivity />
+        <hr className="border-t border-border" role="separator" />
         <FeaturedProjectsSection />
-        <Separator />
+        <hr className="border-t border-border" role="separator" />
         <ExperienceSection />
-        <Separator />
+        <hr className="border-t border-border" role="separator" />
         <EducationSection />
-        <Separator />
+        <hr className="border-t border-border" role="separator" />
         <WritingSection />
-        <Separator />
+        <hr className="border-t border-border" role="separator" />
         <ContactSection />
       </Container>
       <JsonLd data={getProfilePageSchema()} />

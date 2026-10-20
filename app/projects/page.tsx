@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui/Container";
-import { ProjectGrid } from "@/components/core/projects/ProjectGrid";
-import { projects } from "@/constants/projects";
-import { siteConfig } from "@/constants/site";
-import { JsonLd, getBreadcrumbSchema, getProjectsCollectionSchema } from "@/components/seo/JsonLd";
+import { Container } from "@/components/Layout";
+import { ProjectGrid } from "@/components/ProjectGrid";
+import { projects } from "@/utils/projects";
+import { siteConfig } from "@/utils/site";
+import { JsonLd, getBreadcrumbSchema, getProjectsCollectionSchema } from "@/utils/seo";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Explore Abdul Rahman’s full-stack projects: Klar, Sonik, Glimpse, and DevScope. Built with React, Next.js, Node.js, and modern databases.",
+  description: `Explore ${siteConfig.name}’s full-stack projects: ${new Intl.ListFormat("en-US", { style: "long", type: "conjunction" }).format(projects.map((project) => project.title))}. Built with React, Next.js, Node.js, and modern databases.`,
   alternates: { canonical: `${siteConfig.url}/projects` },
   openGraph: {
-    title: "Projects | Abdul Rahman",
+    title: `Projects | ${siteConfig.name}`,
     description: "Selected web applications and developer tools.",
     url: `${siteConfig.url}/projects`,
   },

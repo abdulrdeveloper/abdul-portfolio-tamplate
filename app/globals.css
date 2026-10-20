@@ -57,7 +57,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --font-sans: var(--font-hanken-grotesk);
-  --font-serif: var(--font-space-grotesk);
+  --font-serif: var(--font-heading);
 }
 
 *,
@@ -86,7 +86,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }

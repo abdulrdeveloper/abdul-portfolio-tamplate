@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { Badge } from "@/components/ui/Badge";
-import { projects } from "@/constants/projects";
-import { siteConfig } from "@/constants/site";
-import { JsonLd, getBreadcrumbSchema, getProjectSchema } from "@/components/seo/JsonLd";
+import { Container } from "@/components/Layout";
+import { Badge } from "@/components/Badge";
+import { projects } from "@/utils/projects";
+import { siteConfig } from "@/utils/site";
+import { JsonLd, getBreadcrumbSchema, getProjectSchema } from "@/utils/seo";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     description: project.description,
     alternates: { canonical: `${siteConfig.url}/projects/${slug}` },
     openGraph: {
-      title: `${project.title} | Abdul Rahman`,
+      title: `${project.title} | ${siteConfig.name}`,
       description: project.description,
       url: `${siteConfig.url}/projects/${slug}`,
     },

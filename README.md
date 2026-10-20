@@ -50,13 +50,14 @@ No API keys, database, or environment file are required. Installing dependencies
 
 | Update | File or directory |
 | --- | --- |
-| Name, domain, email, navigation, and social links | [`constants/site.ts`](constants/site.ts) |
-| Skills, experience, and education | [`constants/profile.ts`](constants/profile.ts) |
-| Projects, technologies, features, and demo/source links | [`constants/projects.ts`](constants/projects.ts) |
-| Blog previews and external article links | [`constants/blog.ts`](constants/blog.ts) |
-| Hero introduction | [`HeroSection.tsx`](components/core/landing/HeroSection.tsx) |
-| Personal story | [`AboutSection.tsx`](components/core/landing/AboutSection.tsx) |
-| Contact introduction | [`ContactSection.tsx`](components/core/landing/ContactSection.tsx) |
+| Name, handle, role, location, domain, email, navigation, and social links | [`utils/site.ts`](utils/site.ts) |
+| Biography facts, featured-project reference, skills, experience, and education | [`utils/profile.ts`](utils/profile.ts) |
+| Projects, technologies, features, and demo/source links | [`utils/projects.ts`](utils/projects.ts) |
+| Blog previews and external article links | [`utils/blog.ts`](utils/blog.ts) |
+| All homepage sections: text, markup, spacing, and order | [`app/page.tsx`](app/page.tsx) |
+| Complete header: brand, navigation, theme button and provider | [`components/Header.tsx`](components/Header.tsx) |
+| Live GitHub stats and calendar | [`components/GitHubActivity.tsx`](components/GitHubActivity.tsx) |
+| Common shell, fonts, footer, and default metadata | [`app/layout.tsx`](app/layout.tsx) |
 | Profile photo | `public/avatar.png` |
 | Favicon | `public/favicon.png` |
 | CV | `public/Abdul_Rahman_CV.pdf` |
@@ -68,25 +69,27 @@ No API keys, database, or environment file are required. Installing dependencies
 - Replace the example identity, biography, contact links, and CV.
 - Add only your own projects, skills, education, and experience.
 - Remove unused sections from [`app/page.tsx`](app/page.tsx).
-- Set your deployed domain in `constants/site.ts`.
+- Set your deployed domain in `utils/site.ts`.
 - Update your GitHub profile URL to load your activity.
 - Replace the avatar, favicon, logos, and sharing artwork.
-- Review names and descriptions in page metadata and structured data.
+- Review page descriptions and structured data. Identity fields use the shared site configuration.
 - Search the source for `Abdul Rahman`, `abdulrdeveloper`, and `Spurvance` to catch remaining example content.
 
-Some personal details are written directly in components, metadata, and [`components/seo/JsonLd.tsx`](components/seo/JsonLd.tsx), so updating the constants alone does not replace every reference.
+Shared names, handle, role, location, contact labels, and metadata identity fields use `utils/site.ts`. Biography facts and the About section's featured-project reference use `utils/profile.ts`; the project name and URL come from `utils/projects.ts`. Review the introductory paragraphs in `app/page.tsx`, page descriptions, artwork, CV, and documentation when personalizing the template.
+
+This repository uses npm. Keep `package-lock.json` in sync with dependency changes and use `npm ci` for reproducible installation.
 
 Editing the sharing SVG does not automatically regenerate its PNG.
 
 ### Projects
 
-Edit `constants/projects.ts` to add or remove projects. Each project entry generates a detail page at `/projects/[slug]`.
+Edit `utils/projects.ts` to add or remove projects. Each project entry generates a detail page at `/projects/[slug]`.
 
 Update its description, technologies, features, logo, demo URL, and source URL. Rebuild after changing project entries.
 
 ### Blog previews
 
-Edit `constants/blog.ts` with your article titles, descriptions, publication dates, and URLs.
+Edit `utils/blog.ts` with your article titles, descriptions, publication dates, and URLs.
 
 Entries are sorted newest first. The homepage shows the latest three, while `/blog` lists all previews. Full articles open on your external blog.
 
@@ -94,13 +97,13 @@ Article previews are maintained manually; publishing an article elsewhere does n
 
 ### CV
 
-Replace `public/Abdul_Rahman_CV.pdf` with your own document. If you rename it, update the CV link in `constants/site.ts`.
+Replace `public/Abdul_Rahman_CV.pdf` with your own document. If you rename it, update the CV link in `utils/site.ts`.
 
 ## GitHub integration
 
 The template fetches public follower data from GitHub and contribution data from a separate contribution-calendar provider.
 
-The username is derived from your GitHub URL in `constants/site.ts`. No token is required.
+The username is derived from your GitHub URL in `utils/site.ts`. No token is required.
 
 Activity loads in the browser and refreshes every 24 hours while the page remains open. Loading, unavailable, and failed-refresh states are included. Provider caching and rate limits can affect the displayed data.
 
@@ -131,7 +134,7 @@ Review:
 
 - [`app/layout.tsx`](app/layout.tsx) for default metadata.
 - Project and blog pages for page-specific metadata.
-- [`components/seo/JsonLd.tsx`](components/seo/JsonLd.tsx) for structured data.
+- [`utils/seo.tsx`](utils/seo.tsx) for structured data.
 - [`app/sitemap.ts`](app/sitemap.ts) and [`app/robots.ts`](app/robots.ts) for crawl configuration.
 
 Set your own domain and identity before deployment. Search Console verification is not preconfigured.
@@ -159,17 +162,25 @@ No running Next.js server or `npm start` command is required.
 ## Structure
 
 ```text
-app/             Pages, styles, metadata, sitemap, and robots
-components/      Portfolio sections, layout, and reusable UI
-constants/       Site settings and editable content
-lib/             GitHub requests and shared utilities
+app/             Pages; homepage sections live together in app/page.tsx
+components/      Flat folder for the header, GitHub activity, and reused UI
+utils/           Clearly named content files, helpers, and SEO schemas
+services/        External GitHub and contribution-calendar requests
 public/          Images, icons, logos, and CV
-types/           Shared TypeScript types
+types/           Shared content types and the CSS import declaration
 ```
+
+### How the files connect
+
+`app/layout.tsx` supplies the header, theme provider, fonts, footer, and default metadata to every page. `app/page.tsx` contains the homepage section functions in display order. It imports editable data from `utils/`, reused UI from `components/`, and the browser-only GitHub activity component. The header's navigation and theme controls stay together in `components/Header.tsx`.
+
+Project and blog routes reuse the same project grid, article cards, and content files as the homepage. `components/GitHubActivity.tsx` calls `services/github.ts` for live data. `utils/seo.tsx` supplies structured data; sitemap and robots remain in `app/` so Next.js generates their routes.
+
+The homepage and page metadata stay server-rendered and statically exported. Browser state, effects, and theme interactions remain in client components.
 
 ## Contributing and support
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance and [SUPPORT.md](SUPPORT.md) for troubleshooting.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance. For usage questions or reproducible bugs, search or open an issue in [this repository](https://github.com/abdulrdeveloper/abdul-portfolio-tamplate/issues), including your Node.js version, command, expected result, and redacted error output.
 
 Follow the [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately using [SECURITY.md](SECURITY.md).
 

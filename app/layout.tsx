@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Manrope, Hanken_Grotesk } from "next/font/google";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/layout/ThemeProvider";
-import { siteConfig } from "@/constants/site";
-import { JsonLd, getWebSiteSchema, getPersonSchema } from "@/components/seo/JsonLd";
+import { Header, ThemeProvider } from "@/components/Header";
+import { Container } from "@/components/Layout";
+import Link from "next/link";
+import { siteConfig } from "@/utils/site";
+import { JsonLd, getWebSiteSchema, getPersonSchema } from "@/utils/seo";
 import "./globals.css";
 
 const bodyFont = Hanken_Grotesk({
@@ -14,7 +14,7 @@ const bodyFont = Hanken_Grotesk({
 });
 
 const headingFont = Manrope({
-  variable: "--font-space-grotesk",
+  variable: "--font-heading",
   weight: ["500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
@@ -22,7 +22,7 @@ const headingFont = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: { default: siteConfig.title, template: "%s | Abdul Rahman" },
+  title: { default: siteConfig.title, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   authors: [{ name: siteConfig.fullName, url: siteConfig.url }],
   creator: siteConfig.fullName,
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${bodyFont.variable} ${headingFont.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <a href="#main-content" className="skip-link">Skip to content</a>
-          <Navbar />
+          <Header />
           <main id="main-content" className="min-h-[calc(100dvh-3.5rem)]">{children}</main>
           <Footer />
         </ThemeProvider>
@@ -63,5 +63,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <JsonLd data={getPersonSchema()} />
       </body>
     </html>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="mt-12 border-t border-border py-8">
+      <Container className="flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
+        <p>&copy; {new Date().getFullYear()} {siteConfig.name}</p>
+        <Link href="/" className="hover:text-foreground">Code is the conversation.</Link>
+      </Container>
+    </footer>
   );
 }
