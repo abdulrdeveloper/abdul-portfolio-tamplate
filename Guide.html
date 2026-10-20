@@ -39,7 +39,7 @@
     }
 
     .container {
-      max-width: 1040px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
@@ -73,7 +73,7 @@
     p.subtitle {
       font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 65ch;
+      max-width: 70ch;
     }
 
     h2 {
@@ -84,6 +84,14 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 1.75rem 0 0.75rem;
+      color: var(--text-main);
     }
 
     p {
@@ -161,7 +169,7 @@
 
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1rem;
       margin-top: 1rem;
     }
@@ -170,19 +178,21 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      padding: 1rem;
+      padding: 1.25rem;
     }
 
     .quick-item strong {
       display: block;
       color: var(--text-main);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: 0.35rem;
     }
 
     .quick-item span {
-      font-size: 0.825rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
+      line-height: 1.5;
+      display: block;
     }
 
     footer {
@@ -201,52 +211,119 @@
       <span class="badge-pill">Developer Architecture Guide</span>
       <h1>Abdul Rahman Portfolio — System Guide</h1>
       <p class="subtitle">
-        A complete, standalone architecture reference detailing the request lifecycle, component assembly, data pipelines, and file relationships.
+        A complete, standalone architecture reference detailing the request lifecycle, sub-routes (<code>/blog</code>, <code>/projects</code>, <code>/projects/[slug]</code>), component assembly, data pipelines, and file relationships.
       </p>
     </header>
 
     <main>
-      <!-- SECTION 1 -->
+      <!-- SECTION 1: END-TO-END REQUEST LIFECYCLE -->
       <section>
-        <h2>1. End-to-End Request Lifecycle</h2>
+        <h2>1. Global Application Lifecycle & Route Resolution</h2>
         <p>
-          When a client accesses the root domain (<code>/</code>), Next.js 16 initializes the Root Layout, sets up client-side hydration for dark mode, renders global navigation, and mounts the home page sections inside the primary viewport.
+          Every incoming HTTP request first passes through the Root Shell (<code>app/layout.tsx</code>). Next.js evaluates the requested path and mounts the matching route component inside <code>&lt;main id="main-content"&gt;</code> while keeping the Navbar, Theme Provider, and Footer persistent.
         </p>
 
         <div class="mermaid-container">
           <pre class="mermaid">
 flowchart TD
-    User(["Client Request (GET /)"]) --> RootLayout["app/layout.tsx<br/>(RootLayout Shell)"]
+    User(["Client Request"]) --> RootLayout["app/layout.tsx<br/>(RootLayout Shell)"]
     
-    subgraph PersistentShell ["Persistent Application Shell"]
-        RootLayout --> GlobalCSS["app/globals.css<br/>(Design Tokens & Noise Texture)"]
-        RootLayout --> ThemeProvider["next-themes ThemeProvider<br/>(SSR Class Management)"]
-        RootLayout --> StickyHeader["components/Header.tsx<br/>(Brand Logo, NavLinks, ThemeToggle)"]
-        RootLayout --> MainContent["main#main-content<br/>(Scroll Container)"]
+    subgraph PersistentShell ["Persistent Shell (Active for Every Page)"]
+        RootLayout --> GlobalCSS["app/globals.css<br/>(Tailwind v4 & Noise)"]
+        RootLayout --> ThemeProvider["next-themes ThemeProvider<br/>(Dark / Light Class)"]
+        RootLayout --> StickyHeader["components/Header.tsx<br/>(Logo, NavLinks, ThemeToggle)"]
+        RootLayout --> MainContent["main#main-content<br/>(Active Page Viewport)"]
         RootLayout --> Footer["Footer<br/>(Copyright & Tagline)"]
-        RootLayout --> SEO["utils/seo.tsx<br/>(JSON-LD Structured Schemas)"]
+        RootLayout --> SEO["utils/seo.tsx<br/>(WebSite & Person Schemas)"]
     end
 
-    subgraph PageAssembly ["Main Page Component (app/page.tsx)"]
-        MainContent --> PageRoot["app/page.tsx"]
-        PageRoot --> S1["1. HeroSection"]
-        PageRoot --> S2["2. AboutSection"]
-        PageRoot --> S3["3. GitHubActivity"]
-        PageRoot --> S4["4. FeaturedProjectsSection"]
-        PageRoot --> S5["5. ExperienceSection"]
-        PageRoot --> S6["6. EducationSection"]
-        PageRoot --> S7["7. WritingSection"]
-        PageRoot --> S8["8. ContactSection"]
-    end
+    MainContent --> RouterBranch{"URL Path Evaluator"}
+
+    RouterBranch -->|"GET /"| HomeRoute["app/page.tsx<br/>(Home Page with 8 Sections)"]
+    RouterBranch -->|"GET /projects"| ProjectsRoute["app/projects/page.tsx<br/>(Full Projects Catalog)"]
+    RouterBranch -->|"GET /projects/[slug]"| DynamicProjectRoute["app/projects/[slug]/page.tsx<br/>(Static Case Study Page)"]
+    RouterBranch -->|"GET /blog"| BlogRoute["app/blog/page.tsx<br/>(Full Blog Articles List)"]
+    RouterBranch -->|"Unknown Path"| NotFoundRoute["app/not-found.tsx<br/>(Custom 404 View)"]
           </pre>
         </div>
       </section>
 
-      <!-- SECTION 2 -->
+      <!-- SECTION 2: SUB-ROUTES ARCHITECTURE (PROJECTS, SLUG, BLOG) -->
       <section>
-        <h2>2. Data Pipeline & Component Mapping</h2>
+        <h2>2. Sub-Routes Architecture (<code>/projects</code>, <code>/projects/[slug]</code>, <code>/blog</code>)</h2>
         <p>
-          Data is decoupled from UI presentation. Content definitions reside inside <code>utils/</code> and <code>services/</code>, ensuring clean separation of concerns and effortless maintenance.
+          Beyond the home page, the application features dedicated sub-routes for software projects, dynamic case studies, and blog posts. Here is how data and components connect into each sub-route:
+        </p>
+
+        <div class="mermaid-container">
+          <pre class="mermaid">
+flowchart TD
+    subgraph SubRouteProjects ["Route: /projects (app/projects/page.tsx)"]
+        P_Page["app/projects/page.tsx"]
+        P_Data["utils/projects.ts<br/>(projects array)"]
+        P_Grid["components/ProjectGrid.tsx<br/>(2-Column Project Cards)"]
+        P_SEO["utils/seo.tsx<br/>(getProjectsCollectionSchema)"]
+        
+        P_Data --> P_Grid --> P_Page
+        P_SEO --> P_Page
+    end
+
+    subgraph SubRouteSlug ["Dynamic Route: /projects/[slug] (app/projects/[slug]/page.tsx)"]
+        S_Page["app/projects/[slug]/page.tsx"]
+        S_Data["utils/projects.ts<br/>(Project details by slug)"]
+        S_StaticParams["generateStaticParams()<br/>(Pre-renders: klar, sonik, glimpse, devscope)"]
+        S_Meta["generateMetadata()<br/>(Dynamic Title, OpenGraph & Canonical)"]
+        S_Badge["components/Badge.tsx<br/>(Tech Stack Pills)"]
+        S_Icons["utils/tech-icons.ts<br/>(SVG Icon Mapping)"]
+        S_SEO["utils/seo.tsx<br/>(getProjectSchema & Breadcrumb)"]
+        
+        S_Data --> S_StaticParams --> S_Page
+        S_Data --> S_Meta --> S_Page
+        S_Data --> S_Page
+        S_Icons --> S_Badge --> S_Page
+        S_SEO --> S_Page
+    end
+
+    subgraph SubRouteBlog ["Route: /blog (app/blog/page.tsx)"]
+        B_Page["app/blog/page.tsx"]
+        B_Data["utils/blog.ts<br/>(blogPosts array)"]
+        B_Card["components/BlogCard.tsx<br/>(Article Card + Date Format)"]
+        B_Site["utils/site.ts<br/>(blogUrl: Hashnode Link)"]
+        B_SEO["utils/seo.tsx<br/>(getBlogCollectionSchema)"]
+        
+        B_Data --> B_Card --> B_Page
+        B_Site --> B_Page
+        B_SEO --> B_Page
+    end
+          </pre>
+        </div>
+
+        <div class="grid-2">
+          <div class="quick-item">
+            <strong>How Dynamic Project SSG Works (<code>/projects/[slug]</code>)</strong>
+            <span>
+              1. <code>generateStaticParams()</code> reads all project slugs from <code>utils/projects.ts</code> and builds static HTML for each at build time.<br/>
+              2. <code>dynamicParams = false</code> ensures invalid slugs immediately return the 404 page.<br/>
+              3. <code>generateMetadata()</code> automatically sets the document title (e.g., <em>"Klar | Abdul Rahman"</em>) and OpenGraph tags.<br/>
+              4. Features list with custom SVG checkmarks and Tech Stack Badges rendered using <code>components/Badge.tsx</code>.
+            </span>
+          </div>
+          <div class="quick-item">
+            <strong>How Projects & Blog Catalogs Work (<code>/projects</code> & <code>/blog</code>)</strong>
+            <span>
+              1. <code>app/projects/page.tsx</code> loads all projects and feeds them into <code>components/ProjectGrid.tsx</code>.<br/>
+              2. <code>app/blog/page.tsx</code> iterates over <code>utils/blog.ts</code> to render <code>BlogCard.tsx</code> components.<br/>
+              3. Each blog card uses <code>formatDate()</code> from <code>utils/helpers.ts</code> to format UTC publication dates and links directly to Hashnode.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: HOME PAGE COMPONENT PIPELINE -->
+      <section>
+        <h2>3. Home Page Component Pipeline (<code>app/page.tsx</code>)</h2>
+        <p>
+          Data is completely decoupled from UI presentation. Content definitions reside inside <code>utils/</code> and <code>services/</code>, feeding directly into modular section components assembled inside <code>app/page.tsx</code>.
         </p>
 
         <div class="mermaid-container">
@@ -262,25 +339,23 @@ flowchart LR
     end
 
     subgraph Components ["Component Layer"]
-        HeaderComp["components/Header.tsx"]
-        HeroComp["sections/HeroSection.tsx"]
-        AboutComp["sections/AboutSection.tsx"]
+        HeroComp["components/sections/HeroSection.tsx"]
+        AboutComp["components/sections/AboutSection.tsx"]
         BadgeComp["components/Badge.tsx"]
         ActivityComp["components/GitHubActivity.tsx"]
         GridComp["components/ProjectGrid.tsx"]
-        FeatComp["sections/FeaturedProjectsSection.tsx"]
-        ExpComp["sections/ExperienceSection.tsx"]
-        EduComp["sections/EducationSection.tsx"]
+        FeatComp["components/sections/FeaturedProjectsSection.tsx"]
+        ExpComp["components/sections/ExperienceSection.tsx"]
+        EduComp["components/sections/EducationSection.tsx"]
         CardComp["components/BlogCard.tsx"]
-        WritingComp["sections/WritingSection.tsx"]
-        ContactComp["sections/ContactSection.tsx"]
+        WritingComp["components/sections/WritingSection.tsx"]
+        ContactComp["components/sections/ContactSection.tsx"]
     end
 
     subgraph TargetPage ["Page Target"]
         HomePage["app/page.tsx"]
     end
 
-    SiteData --> HeaderComp
     SiteData --> HeroComp
     SiteData --> AboutComp
     SiteData --> ContactComp
@@ -312,10 +387,10 @@ flowchart LR
         </div>
       </section>
 
-      <!-- SECTION 3 -->
+      <!-- SECTION 4: FILE CONNECTION DIRECTORY -->
       <section>
-        <h2>3. File Connection Directory</h2>
-        <p>A comprehensive inventory of core project files, their inputs, and their functional output.</p>
+        <h2>4. Complete File Connection Directory</h2>
+        <p>Comprehensive reference detailing dependencies, categories, and render outputs across the codebase.</p>
 
         <div class="card" style="padding: 0; overflow: hidden;">
           <table>
@@ -333,6 +408,30 @@ flowchart LR
                 <td><span class="tag">Root Shell</span></td>
                 <td><code>globals.css</code>, <code>Header.tsx</code>, <code>site.ts</code>, <code>seo.tsx</code></td>
                 <td>Persistent document wrapper (HTML, head, fonts, navbar, footer)</td>
+              </tr>
+              <tr>
+                <td><code>app/page.tsx</code></td>
+                <td><span class="tag">Landing Route</span></td>
+                <td><code>components/sections</code>, <code>GitHubActivity.tsx</code>, <code>seo.tsx</code></td>
+                <td>Assembles all 8 landing sections in a clean 38-line component</td>
+              </tr>
+              <tr>
+                <td><code>app/projects/page.tsx</code></td>
+                <td><span class="tag">Catalog Route</span></td>
+                <td><code>ProjectGrid.tsx</code>, <code>projects.ts</code>, <code>site.ts</code>, <code>seo.tsx</code></td>
+                <td>Full catalog of software projects with collection metadata</td>
+              </tr>
+              <tr>
+                <td><code>app/projects/[slug]/page.tsx</code></td>
+                <td><span class="tag">Dynamic Route</span></td>
+                <td><code>Badge.tsx</code>, <code>projects.ts</code>, <code>site.ts</code>, <code>seo.tsx</code></td>
+                <td>Statically pre-rendered case study with features, live demo, and tech badges</td>
+              </tr>
+              <tr>
+                <td><code>app/blog/page.tsx</code></td>
+                <td><span class="tag">Catalog Route</span></td>
+                <td><code>BlogCard.tsx</code>, <code>blog.ts</code>, <code>site.ts</code>, <code>seo.tsx</code></td>
+                <td>List of articles linking out to the Hashnode publication</td>
               </tr>
               <tr>
                 <td><code>components/Header.tsx</code></td>
@@ -359,16 +458,34 @@ flowchart LR
                 <td>Live follower count and 365-day SVG/CSS contribution grid</td>
               </tr>
               <tr>
+                <td><code>components/ProjectGrid.tsx</code></td>
+                <td><span class="tag">UI Widget</span></td>
+                <td><code>types/index.ts</code> (Project interface)</td>
+                <td>2-column grid rendering project cards with logos and subtitles</td>
+              </tr>
+              <tr>
+                <td><code>components/BlogCard.tsx</code></td>
+                <td><span class="tag">UI Widget</span></td>
+                <td><code>types/index.ts</code>, <code>utils/helpers.ts</code> (formatDate)</td>
+                <td>Interactive card with title, description, formatted date, and arrow icon</td>
+              </tr>
+              <tr>
+                <td><code>components/Badge.tsx</code></td>
+                <td><span class="tag">UI Widget</span></td>
+                <td><code>utils/tech-icons.ts</code>, SVG files in <code>public/assets/tech/</code></td>
+                <td>Pill badge with technology logo and fallback code icon</td>
+              </tr>
+              <tr>
                 <td><code>sections/FeaturedProjectsSection.tsx</code></td>
                 <td><span class="tag">Landing Section</span></td>
                 <td><code>projects.ts</code>, <code>ProjectGrid.tsx</code></td>
-                <td>2-column grid displaying the top 4 featured project case study cards</td>
+                <td>Top 4 featured projects cards + "View all projects" button</td>
               </tr>
               <tr>
                 <td><code>sections/ExperienceSection.tsx</code></td>
                 <td><span class="tag">Landing Section</span></td>
                 <td><code>profile.ts</code> (internship object)</td>
-                <td>Timeline card displaying role, period, duration, and Spurvance Labs logo</td>
+                <td>Timeline card displaying role, period, duration, and company logo</td>
               </tr>
               <tr>
                 <td><code>sections/EducationSection.tsx</code></td>
@@ -389,91 +506,36 @@ flowchart LR
                 <td>Direct outreach prompt and 8 accessible SVG social/profile icons</td>
               </tr>
               <tr>
-                <td><code>utils/tech-icons.ts</code></td>
-                <td><span class="tag">Utility</span></td>
-                <td>SVG icons in <code>public/assets/tech/</code></td>
-                <td>Icon filename resolver & dark-mode invert flags for tech badges</td>
-              </tr>
-              <tr>
                 <td><code>services/github.ts</code></td>
                 <td><span class="tag">Service</span></td>
-                <td>GitHub Public API & Contribution Proxy</td>
-                <td>Async fetch utilities returning followers and contribution calendar</td>
+                <td>GitHub Public API & Contributions Proxy</td>
+                <td>Async fetch utilities returning follower counts and calendar JSON</td>
+              </tr>
+              <tr>
+                <td><code>types/index.ts</code></td>
+                <td><span class="tag">Types</span></td>
+                <td>TypeScript Interfaces</td>
+                <td>Type contracts for Project, BlogPost, SocialLink, and NavItem</td>
+              </tr>
+              <tr>
+                <td><code>types/styles.d.ts</code></td>
+                <td><span class="tag">Ambient Types</span></td>
+                <td>TypeScript CSS Module Declaration</td>
+                <td>Suppresses TypeScript compiler errors for side-effect CSS imports</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- SECTION 4 -->
-      <section>
-        <h2>4. Application Routing Architecture</h2>
-        <div class="card" style="padding: 0; overflow: hidden;">
-          <table>
-            <thead>
-              <tr>
-                <th>Route</th>
-                <th>File Path</th>
-                <th>Rendering Strategy</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>/</code></td>
-                <td><code>app/page.tsx</code></td>
-                <td><span class="tag">Static</span></td>
-                <td>Primary landing portfolio assembling all 8 sections</td>
-              </tr>
-              <tr>
-                <td><code>/projects</code></td>
-                <td><code>app/projects/page.tsx</code></td>
-                <td><span class="tag">Static</span></td>
-                <td>Catalog view of all software projects</td>
-              </tr>
-              <tr>
-                <td><code>/projects/[slug]</code></td>
-                <td><code>app/projects/[slug]/page.tsx</code></td>
-                <td><span class="tag">SSG (Pre-rendered)</span></td>
-                <td>Dynamic case study pages generated at build time via <code>generateStaticParams</code></td>
-              </tr>
-              <tr>
-                <td><code>/blog</code></td>
-                <td><code>app/blog/page.tsx</code></td>
-                <td><span class="tag">Static</span></td>
-                <td>Full list of technical articles and tutorials</td>
-              </tr>
-              <tr>
-                <td><code>404</code></td>
-                <td><code>app/not-found.tsx</code></td>
-                <td><span class="tag">Static</span></td>
-                <td>Custom error state for nonexistent paths</td>
-              </tr>
-              <tr>
-                <td><code>/sitemap.xml</code></td>
-                <td><code>app/sitemap.ts</code></td>
-                <td><span class="tag">Dynamic XML</span></td>
-                <td>Auto-indexed URL sitemap for search engine crawlers</td>
-              </tr>
-              <tr>
-                <td><code>/robots.txt</code></td>
-                <td><code>app/robots.ts</code></td>
-                <td><span class="tag">Dynamic Text</span></td>
-                <td>Crawler indexing directives</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- SECTION 5 -->
+      <!-- SECTION 5: CONTENT MAINTENANCE CHEATSHEET -->
       <section>
         <h2>5. Content Maintenance Cheatsheet</h2>
-        <p>Reference table for updating portfolio content without touching UI templates:</p>
+        <p>Reference guide for editing content without touching JSX layout structures:</p>
         <div class="grid-2">
           <div class="quick-item">
             <strong>Personal Details & Social Links</strong>
-            <span>Edit <code>utils/site.ts</code> &rarr; Update name, handle, job title, email, or social URLs.</span>
+            <span>Edit <code>utils/site.ts</code> &rarr; Update your name, handle, job title, email, or social profile URLs.</span>
           </div>
           <div class="quick-item">
             <strong>Skills & Tech Stack</strong>
@@ -481,15 +543,15 @@ flowchart LR
           </div>
           <div class="quick-item">
             <strong>Work Experience & Education</strong>
-            <span>Edit <code>utils/profile.ts</code> &rarr; Update <code>internship</code> or <code>education</code> items.</span>
+            <span>Edit <code>utils/profile.ts</code> &rarr; Update the <code>internship</code> or <code>education</code> items.</span>
           </div>
           <div class="quick-item">
-            <strong>Add / Update Projects</strong>
-            <span>Edit <code>utils/projects.ts</code> &rarr; Modify title, description, features list, or demo URLs.</span>
+            <strong>Add / Edit Projects</strong>
+            <span>Edit <code>utils/projects.ts</code> &rarr; Modifying an entry updates both <code>/projects</code> and <code>/projects/[slug]</code>.</span>
           </div>
           <div class="quick-item">
             <strong>Publish New Articles</strong>
-            <span>Edit <code>utils/blog.ts</code> &rarr; Add article title, description, publication date, and Hashnode URL.</span>
+            <span>Edit <code>utils/blog.ts</code> &rarr; Adding a post updates both the landing page and <code>/blog</code>.</span>
           </div>
           <div class="quick-item">
             <strong>Color Palette & Design Tokens</strong>
