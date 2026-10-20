@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture & Code Flow Guide | Abdul Rahman Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #121215;
+      --card-border: #27272a;
+      --card-hover: #1c1c20;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #e4e4e7;
+      --accent-muted: #3f3f46;
+      --badge-bg: #27272a;
+      --badge-text: #d4d4d8;
+      --code-bg: #18181b;
+      --line-height: 1.65;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: var(--line-height);
+      padding: 2.5rem 1.25rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+      border: 1px solid var(--card-border);
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    p.subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 65ch;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 2.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mermaid-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      text-align: left;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    th {
+      background: #18181b;
+      color: var(--text-main);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.825rem;
+      background: var(--code-bg);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      color: #e4e4e7;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border: 1px solid var(--card-border);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .quick-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .quick-item strong {
+      display: block;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .quick-item span {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge-pill">Developer Architecture Guide</span>
+      <h1>Abdul Rahman Portfolio — System Guide</h1>
+      <p class="subtitle">
+        A complete, standalone architecture reference detailing the request lifecycle, component assembly, data pipelines, and file relationships.
+      </p>
+    </header>
+
+    <main>
+      <!-- SECTION 1 -->
+      <section>
+        <h2>1. End-to-End Request Lifecycle</h2>
+        <p>
+          When a client accesses the root domain (<code>/</code>), Next.js 16 initializes the Root Layout, sets up client-side hydration for dark mode, renders global navigation, and mounts the home page sections inside the primary viewport.
+        </p>
+
+        <div class="mermaid-container">
+          <pre class="mermaid">
+flowchart TD
+    User(["Client Request (GET /)"]) --> RootLayout["app/layout.tsx<br/>(RootLayout Shell)"]
+    
+    subgraph PersistentShell ["Persistent Application Shell"]
+        RootLayout --> GlobalCSS["app/globals.css<br/>(Design Tokens & Noise Texture)"]
+        RootLayout --> ThemeProvider["next-themes ThemeProvider<br/>(SSR Class Management)"]
+        RootLayout --> StickyHeader["components/Header.tsx<br/>(Brand Logo, NavLinks, ThemeToggle)"]
+        RootLayout --> MainContent["main#main-content<br/>(Scroll Container)"]
+        RootLayout --> Footer["Footer<br/>(Copyright & Tagline)"]
+        RootLayout --> SEO["utils/seo.tsx<br/>(JSON-LD Structured Schemas)"]
+    end
+
+    subgraph PageAssembly ["Main Page Component (app/page.tsx)"]
+        MainContent --> PageRoot["app/page.tsx"]
+        PageRoot --> S1["1. HeroSection"]
+        PageRoot --> S2["2. AboutSection"]
+        PageRoot --> S3["3. GitHubActivity"]
+        PageRoot --> S4["4. FeaturedProjectsSection"]
+        PageRoot --> S5["5. ExperienceSection"]
+        PageRoot --> S6["6. EducationSection"]
+        PageRoot --> S7["7. WritingSection"]
+        PageRoot --> S8["8. ContactSection"]
+    end
+          </pre>
+        </div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section>
+        <h2>2. Data Pipeline & Component Mapping</h2>
+        <p>
+          Data is decoupled from UI presentation. Content definitions reside inside <code>utils/</code> and <code>services/</code>, ensuring clean separation of concerns and effortless maintenance.
+        </p>
+
+        <div class="mermaid-container">
+          <pre class="mermaid">
+flowchart LR
+    subgraph DataSources ["Data Sources & Services"]
+        SiteData["utils/site.ts<br/>(Profile, Links, Handle)"]
+        ProfileData["utils/profile.ts<br/>(Bio, Timeline, Skills)"]
+        ProjectsData["utils/projects.ts<br/>(Project Showcase Array)"]
+        BlogData["utils/blog.ts<br/>(Article Metadata)"]
+        GithubService["services/github.ts<br/>(REST & Contributions API)"]
+        TechIcons["utils/tech-icons.ts<br/>(SVG Icon Maps)"]
+    end
+
+    subgraph Components ["Component Layer"]
+        HeaderComp["components/Header.tsx"]
+        HeroComp["sections/HeroSection.tsx"]
+        AboutComp["sections/AboutSection.tsx"]
+        BadgeComp["components/Badge.tsx"]
+        ActivityComp["components/GitHubActivity.tsx"]
+        GridComp["components/ProjectGrid.tsx"]
+        FeatComp["sections/FeaturedProjectsSection.tsx"]
+        ExpComp["sections/ExperienceSection.tsx"]
+        EduComp["sections/EducationSection.tsx"]
+        CardComp["components/BlogCard.tsx"]
+        WritingComp["sections/WritingSection.tsx"]
+        ContactComp["sections/ContactSection.tsx"]
+    end
+
+    subgraph TargetPage ["Page Target"]
+        HomePage["app/page.tsx"]
+    end
+
+    SiteData --> HeaderComp
+    SiteData --> HeroComp
+    SiteData --> AboutComp
+    SiteData --> ContactComp
+
+    ProfileData --> AboutComp
+    ProfileData --> ExpComp
+    ProfileData --> EduComp
+
+    TechIcons --> BadgeComp
+    BadgeComp --> AboutComp
+
+    ProjectsData --> GridComp
+    GridComp --> FeatComp
+
+    GithubService --> ActivityComp
+
+    BlogData --> CardComp
+    CardComp --> WritingComp
+
+    HeroComp --> HomePage
+    AboutComp --> HomePage
+    ActivityComp --> HomePage
+    FeatComp --> HomePage
+    ExpComp --> HomePage
+    EduComp --> HomePage
+    WritingComp --> HomePage
+    ContactComp --> HomePage
+          </pre>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section>
+        <h2>3. File Connection Directory</h2>
+        <p>A comprehensive inventory of core project files, their inputs, and their functional output.</p>
+
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <table>
+            <thead>
+              <tr>
+                <th>Component / File</th>
+                <th>Category</th>
+                <th>Dependencies (Imports)</th>
+                <th>Render Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>app/layout.tsx</code></td>
+                <td><span class="tag">Root Shell</span></td>
+                <td><code>globals.css</code>, <code>Header.tsx</code>, <code>site.ts</code>, <code>seo.tsx</code></td>
+                <td>Persistent document wrapper (HTML, head, fonts, navbar, footer)</td>
+              </tr>
+              <tr>
+                <td><code>components/Header.tsx</code></td>
+                <td><span class="tag">Navigation</span></td>
+                <td><code>utils/site.ts</code>, <code>next-themes</code>, <code>next/navigation</code></td>
+                <td>Sticky blurred header with active route styling & theme toggle</td>
+              </tr>
+              <tr>
+                <td><code>sections/HeroSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>public/avatar.png</code>, <code>utils/site.ts</code></td>
+                <td>Avatar image, name, title reveal animation, bio, and CTA links</td>
+              </tr>
+              <tr>
+                <td><code>sections/AboutSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>profile.ts</code>, <code>projects.ts</code>, <code>Badge.tsx</code></td>
+                <td>Career summary, degree status, and categorized tech stack badges</td>
+              </tr>
+              <tr>
+                <td><code>components/GitHubActivity.tsx</code></td>
+                <td><span class="tag">Client Widget</span></td>
+                <td><code>services/github.ts</code>, <code>site.ts</code>, <code>Layout.tsx</code></td>
+                <td>Live follower count and 365-day SVG/CSS contribution grid</td>
+              </tr>
+              <tr>
+                <td><code>sections/FeaturedProjectsSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>projects.ts</code>, <code>ProjectGrid.tsx</code></td>
+                <td>2-column grid displaying the top 4 featured project case study cards</td>
+              </tr>
+              <tr>
+                <td><code>sections/ExperienceSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>profile.ts</code> (internship object)</td>
+                <td>Timeline card displaying role, period, duration, and Spurvance Labs logo</td>
+              </tr>
+              <tr>
+                <td><code>sections/EducationSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>profile.ts</code> (education array)</td>
+                <td>Academic background cards for BS CS and Intermediate credentials</td>
+              </tr>
+              <tr>
+                <td><code>sections/WritingSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>utils/blog.ts</code>, <code>BlogCard.tsx</code></td>
+                <td>Latest 3 published technical articles linking directly to Hashnode</td>
+              </tr>
+              <tr>
+                <td><code>sections/ContactSection.tsx</code></td>
+                <td><span class="tag">Landing Section</span></td>
+                <td><code>utils/site.ts</code> (socialLinks array)</td>
+                <td>Direct outreach prompt and 8 accessible SVG social/profile icons</td>
+              </tr>
+              <tr>
+                <td><code>utils/tech-icons.ts</code></td>
+                <td><span class="tag">Utility</span></td>
+                <td>SVG icons in <code>public/assets/tech/</code></td>
+                <td>Icon filename resolver & dark-mode invert flags for tech badges</td>
+              </tr>
+              <tr>
+                <td><code>services/github.ts</code></td>
+                <td><span class="tag">Service</span></td>
+                <td>GitHub Public API & Contribution Proxy</td>
+                <td>Async fetch utilities returning followers and contribution calendar</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 4 -->
+      <section>
+        <h2>4. Application Routing Architecture</h2>
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <table>
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>File Path</th>
+                <th>Rendering Strategy</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/</code></td>
+                <td><code>app/page.tsx</code></td>
+                <td><span class="tag">Static</span></td>
+                <td>Primary landing portfolio assembling all 8 sections</td>
+              </tr>
+              <tr>
+                <td><code>/projects</code></td>
+                <td><code>app/projects/page.tsx</code></td>
+                <td><span class="tag">Static</span></td>
+                <td>Catalog view of all software projects</td>
+              </tr>
+              <tr>
+                <td><code>/projects/[slug]</code></td>
+                <td><code>app/projects/[slug]/page.tsx</code></td>
+                <td><span class="tag">SSG (Pre-rendered)</span></td>
+                <td>Dynamic case study pages generated at build time via <code>generateStaticParams</code></td>
+              </tr>
+              <tr>
+                <td><code>/blog</code></td>
+                <td><code>app/blog/page.tsx</code></td>
+                <td><span class="tag">Static</span></td>
+                <td>Full list of technical articles and tutorials</td>
+              </tr>
+              <tr>
+                <td><code>404</code></td>
+                <td><code>app/not-found.tsx</code></td>
+                <td><span class="tag">Static</span></td>
+                <td>Custom error state for nonexistent paths</td>
+              </tr>
+              <tr>
+                <td><code>/sitemap.xml</code></td>
+                <td><code>app/sitemap.ts</code></td>
+                <td><span class="tag">Dynamic XML</span></td>
+                <td>Auto-indexed URL sitemap for search engine crawlers</td>
+              </tr>
+              <tr>
+                <td><code>/robots.txt</code></td>
+                <td><code>app/robots.ts</code></td>
+                <td><span class="tag">Dynamic Text</span></td>
+                <td>Crawler indexing directives</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 5 -->
+      <section>
+        <h2>5. Content Maintenance Cheatsheet</h2>
+        <p>Reference table for updating portfolio content without touching UI templates:</p>
+        <div class="grid-2">
+          <div class="quick-item">
+            <strong>Personal Details & Social Links</strong>
+            <span>Edit <code>utils/site.ts</code> &rarr; Update name, handle, job title, email, or social URLs.</span>
+          </div>
+          <div class="quick-item">
+            <strong>Skills & Tech Stack</strong>
+            <span>Edit <code>utils/profile.ts</code> &rarr; Append tools to the <code>skills</code> categories array.</span>
+          </div>
+          <div class="quick-item">
+            <strong>Work Experience & Education</strong>
+            <span>Edit <code>utils/profile.ts</code> &rarr; Update <code>internship</code> or <code>education</code> items.</span>
+          </div>
+          <div class="quick-item">
+            <strong>Add / Update Projects</strong>
+            <span>Edit <code>utils/projects.ts</code> &rarr; Modify title, description, features list, or demo URLs.</span>
+          </div>
+          <div class="quick-item">
+            <strong>Publish New Articles</strong>
+            <span>Edit <code>utils/blog.ts</code> &rarr; Add article title, description, publication date, and Hashnode URL.</span>
+          </div>
+          <div class="quick-item">
+            <strong>Color Palette & Design Tokens</strong>
+            <span>Edit <code>app/globals.css</code> &rarr; Update CSS custom properties under <code>:root</code> and <code>.dark</code>.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Abdul Rahman Portfolio &bull; Standalone System Architecture Documentation
+    </footer>
+  </div>
+
+  <!-- Mermaid.js Module for Dynamic SVG Rendering -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#121215',
+        primaryColor: '#27272a',
+        primaryBorderColor: '#3f3f46',
+        primaryTextColor: '#f4f4f5',
+        lineColor: '#71717a',
+        secondaryColor: '#1c1c20',
+        tertiaryColor: '#121215'
+      }
+    });
+  </script>
+</body>
+</html>
