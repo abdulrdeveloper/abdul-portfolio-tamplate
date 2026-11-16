@@ -8,12 +8,14 @@ export const biography = {
 };
 
 export const skills = [
-  { category: "Frontend", tools: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS", "shadcn/ui"] },
-  { category: "Backend", tools: ["Node.js", "Express", "Joi", "Zod"] },
-  { category: "Databases & ORMs", tools: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "Mongoose"] },
+  { category: "Languages", tools: ["TypeScript", "JavaScript", "SQL"] },
+  { category: "Frontend", tools: ["React", "Next.js", "Tailwind CSS"] },
+  { category: "Backend", tools: ["Node.js", "Express", "REST APIs", "WebSockets", "Zod"] },
+  { category: "Auth & Security", tools: ["OAuth 2.0", "OpenID Connect", "JWT", "RBAC"] },
+  { category: "Databases & ORMs", tools: ["PostgreSQL", "MongoDB", "Redis", "Drizzle", "Prisma", "Mongoose"] },
+  { category: "AI & Integrations", tools: ["Mistral", "Groq", "Resend", "ImageKit", "Cloudinary"] },
   { category: "Testing", tools: ["Jest", "Vitest"] },
-  { category: "Build Tools", tools: ["Vite", "Webpack", "Turbopack"] },
-  { category: "Tools & Deployment", tools: ["Git", "GitHub", "Docker", "Postman", "Vercel", "Netlify", "Heroku", "Render", "Railway"] },
+  { category: "DevOps & Tooling", tools: ["Docker", "Linux", "Git", "Vite", "Postman", "Vercel", "Render", "Heroku"] },
 ];
 
 export const internship = {

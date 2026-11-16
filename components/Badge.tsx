@@ -20,7 +20,7 @@ export function Badge({
     >
       {icon ? (
         <Image
-          src={`/assets/tech/${icon.file}.svg`}
+          src={`/assets/tech/${icon.file}.${icon.ext ?? "svg"}`}
           width={16}
           height={16}
           alt=""

@@ -2,6 +2,24 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    slug: "clavis",
+    logo: "/assets/projects/clavis.png",
+    logoSize: "small",
+    title: "Clavis",
+    subtitle: "Self-hosted OpenID Connect provider",
+    description: "An open-source identity platform where users sign up once and other apps add \"Continue with Clavis\" using the OpenID Connect authorization code flow with PKCE.",
+    technologies: ["TypeScript", "Express", "React", "MongoDB", "Mongoose", "Redis", "Vite", "Tailwind CSS"],
+    features: [
+      "OpenID Connect provider with PKCE, RS256 ID tokens, and a consent screen.",
+      "Email verification with 6-digit codes and per-device sessions.",
+      "Short-lived access tokens and rotating refresh tokens in HttpOnly cookies.",
+      "Developer page to register apps and manage connected apps.",
+    ],
+    liveUrl: "https://clavis.abdulrdeveloper.me",
+    githubUrl: "https://github.com/abdulrdeveloper/clavis",
+    featured: true,
+  },
+  {
     slug: "klar",
     logo: "/assets/projects/klar.png",
     logoSize: "small",
@@ -51,6 +69,23 @@ export const projects: Project[] = [
     ],
     liveUrl: "https://glimpse.abdulrdeveloper.me",
     githubUrl: "https://github.com/abdulrdeveloper/glimpse",
+    featured: true,
+  },
+  {
+    slug: "portfolio-template",
+    logo: "/assets/projects/portfolio-template.png",
+    title: "Portfolio Template",
+    subtitle: "Open-source developer portfolio",
+    description: "The complete source of this portfolio, published as a template. Clone it, replace the content files with your own details, and deploy a personal site with project pages, blog previews, and live GitHub activity.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
+    features: [
+      "Editable content files for profile, projects, skills, and blog posts.",
+      "Individual project pages, dark mode, and a live GitHub contribution calendar.",
+      "SEO metadata, structured data, sitemap, and Open Graph cards.",
+      "Static export that deploys to Vercel or Netlify without a backend.",
+    ],
+    liveUrl: "https://abdulrdeveloper.me",
+    githubUrl: "https://github.com/abdulrdeveloper/abdul-portfolio-tamplate",
     featured: true,
   },
   {

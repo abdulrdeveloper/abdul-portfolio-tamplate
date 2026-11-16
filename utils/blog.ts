@@ -3,6 +3,48 @@ import { siteConfig } from "@/utils/site";
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "websockets-explained-real-time-chat",
+    title: "WebSockets Explained: How Real-Time Chat Works and Why It’s Hard to Scale",
+    description: "What WebSockets are and how real-time chat works, from the handshake and Socket.IO to Linux limits and scaling to a million connections.",
+    date: "2026-11-16T06:16:34Z",
+    url: `${siteConfig.blogUrl}/websockets-explained-real-time-chat`,
+  },
+  {
+    slug: "why-google-trusts-your-app-oidc-oauth2",
+    title: "How “Sign in with Google” Really Works: OIDC and OAuth 2.0 Explained",
+    description: "How Sign in with Google really works: shared secrets, public keys, OIDC, client_id and the Authorization Code flow, explained step by step.",
+    date: "2026-11-03T12:49:01Z",
+    url: `${siteConfig.blogUrl}/why-google-trusts-your-app-oidc-oauth2`,
+  },
+  {
+    slug: "nodejs-file-upload-fs-buffer-multer",
+    title: "From Bytes to the Cloud: How Node.js Reads, Validates and Uploads Files",
+    description: "Learn how Node.js handles files: fs module, Buffer, magic bytes, Multer validation and cloud storage with Cloudinary and ImageKit.",
+    date: "2026-10-31T11:13:48Z",
+    url: `${siteConfig.blogUrl}/nodejs-file-upload-fs-buffer-multer`,
+  },
+  {
+    slug: "authentication-vs-authorization-in-nodejs-express",
+    title: "Authentication vs Authorization: Who Are You, and What Can You Do?",
+    description: "The difference between authentication and authorization in backend development, with practical Node.js and Express middleware examples.",
+    date: "2026-10-23T10:55:57Z",
+    url: `${siteConfig.blogUrl}/authentication-vs-authorization-in-nodejs-express`,
+  },
+  {
+    slug: "jwt-authentication-nodejs-access-refresh-tokens",
+    title: "Your Server Has Amnesia. JWT Is the Cure.",
+    description: "JWT authentication in Node.js: token structure, login flow, protecting routes with middleware, and access and refresh tokens.",
+    date: "2026-10-22T08:30:39Z",
+    url: `${siteConfig.blogUrl}/jwt-authentication-nodejs-access-refresh-tokens`,
+  },
+  {
+    slug: "javascript-fundamentals-functions-loops-arrays",
+    title: "Think Like a Factory: JavaScript Fundamentals That Actually Stick",
+    description: "JavaScript fundamentals with a factory analogy: functions, if-else, loops, arrays, hoisting, map and forEach, in simple words.",
+    date: "2026-10-21T07:46:22Z",
+    url: `${siteConfig.blogUrl}/javascript-fundamentals-functions-loops-arrays`,
+  },
+  {
     slug: "express-middleware-explained",
     title: "The Guard at Your API’s Gate : Middleware in Express, explained simply",
     description: "How Express middleware handles logging, authentication, validation, and requests before they reach a route.",
@@ -39,7 +81,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "git-github-oriantation-class-cohort-3-tea-class-1",
-    title: "Git & GitHub | oriantation class + cohort 3 + tea class 1",
+    title: "Git & GitHub | orientation class + cohort 3 + tea class 1",
     description: "Learning notes on why Git matters, how version control works, and getting started with GitHub.",
     date: "2026-08-04T15:57:52Z",
     url: `${siteConfig.blogUrl}/git-github-oriantation-class-cohort-3-tea-class-1`,
@@ -95,7 +137,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "understanding-network-devices",
-    title: "Understanding Network Devices :",
+    title: "Understanding Network Devices",
     description: "Explore the devices that connect computers and help data travel across a network.",
     date: "2026-01-27T06:19:07Z",
     url: `${siteConfig.blogUrl}/understanding-network-devices`,
