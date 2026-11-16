@@ -1,4 +1,4 @@
-export const techIcons: Record<string, { file: string; invertInDark?: boolean }> = {
+export const techIcons: Record<string, { file: string; ext?: "svg" | "png"; invertInDark?: boolean }> = {
   HTML: { file: "html" },
   CSS: { file: "css" },
   JavaScript: { file: "javascript" },
@@ -30,4 +30,17 @@ export const techIcons: Record<string, { file: string; invertInDark?: boolean }>
   Heroku: { file: "heroku" },
   Render: { file: "render", invertInDark: true },
   Railway: { file: "railway", invertInDark: true },
+  SQL: { file: "sql", invertInDark: true },
+  "REST APIs": { file: "rest-api", invertInDark: true },
+  WebSockets: { file: "websockets", invertInDark: true },
+  "OAuth 2.0": { file: "oauth", ext: "png", invertInDark: true },
+  "OpenID Connect": { file: "openid" },
+  JWT: { file: "jwt", invertInDark: true },
+  RBAC: { file: "rbac", invertInDark: true },
+  Groq: { file: "groq" },
+  Resend: { file: "resend", invertInDark: true },
+  ImageKit: { file: "imagekit", ext: "png" },
+  Cloudinary: { file: "cloudinary" },
+  FreeAPI: { file: "freeapi" },
+  Linux: { file: "linux", invertInDark: true },
 };
