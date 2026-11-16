@@ -39,8 +39,6 @@ export const socialLinks: SocialLink[] = [
   { name: "GitHub", url: siteConfig.socialProfiles.github },
   { name: "LinkedIn", url: siteConfig.socialProfiles.linkedin },
   { name: "X", url: siteConfig.socialProfiles.x },
-  { name: "Instagram", url: siteConfig.socialProfiles.instagram },
-  { name: "WhatsApp", url: "https://wa.me/923254338820" },
   { name: "Hashnode", url: siteConfig.blogUrl },
   { name: "Email", url: siteConfig.socialProfiles.email },
   { name: "CV", url: "/Abdul_Rahman_CV.pdf" },
